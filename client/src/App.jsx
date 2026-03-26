@@ -1,5 +1,11 @@
+import React from "react";
+
 function App() {
-  return <h1>Birthday Reminder App</h1>
+  return (
+    <div className="App">
+      <h1>Birthday Calendar App!</h1>
+    </div>
+  );
 }
 
-export default App
+export default App;

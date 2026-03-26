@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 
 // Import the birthdays router, which contains routes for managing birthday data
-import birthdaysRouter from '../routes/birthdays.js';
+import birthdaysRouter from './routes/birthdays.js';
 
 // Create an instance of the Express application
 const app = express();
