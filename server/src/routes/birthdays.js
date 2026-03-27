@@ -1,8 +1,19 @@
-import express from 'express';
+import express from "express";
 // Import controller functions for handling birthday-related requests
-import { getAllBirthdays, getBirthdayById, createBirthday, updateBirthday, deleteBirthday } from '../controllers/birthdayController.js';
+import {
+  getAllBirthdays,
+  getBirthdayById,
+  createBirthday,
+  updateBirthday,
+  deleteBirthday,
+} from "../controllers/birthdayController.js";
+// Import authentication middleware to protect the routes
+import authMiddleware from "../middleware/supabaseAuth.js";
 
 const router = express.Router();
+
+// Apply auth middleware to all birthday routes
+router.use(authMiddleware);
 
 // GET all birthdays
 router.get("/", getAllBirthdays);

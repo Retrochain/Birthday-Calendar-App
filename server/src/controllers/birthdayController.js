@@ -11,6 +11,7 @@ const getAllBirthdays = async (req, res) => {
     const { data, error } = await supabase
       .from("birthdays")
       .select("*")
+      .eq("user_id", req.user.id)
       .order("birthdate", { ascending: true });
 
     // If there is an error during the database query, return a 500 Internal Server Error response with the error message
@@ -42,7 +43,9 @@ const getBirthdayById = async (req, res) => {
     const { data, error } = await supabase
       .from("birthdays")
       .select("*")
-      .eq("id", id);
+      .eq("id", id)
+      .eq("user_id", req.user.id)
+      .single();
 
     // If there is an error during the database query, return a 500 Internal Server Error response with the error message
     if (error) {
@@ -80,6 +83,7 @@ const createBirthday = async (req, res) => {
       .from("birthdays")
       .select("id")
       .eq("name", name)
+      .eq("user_id", req.user.id)
       .single();
 
     if (existing) {
@@ -132,6 +136,7 @@ const updateBirthday = async (req, res) => {
       .from("birthdays")
       .update({ name, birthdate, note })
       .eq("id", id)
+      .eq("user_id", req.user.id)
       .select()
       .single();
 
@@ -164,7 +169,8 @@ const deleteBirthday = async (req, res) => {
     const { data, error } = await supabase
       .from("birthdays")
       .delete()
-      .eq("id", id);
+      .eq("id", id)
+      .eq("user_id", req.user.id);
 
     // If there is an error during the database deletion, return a 500 Internal Server Error response with the error message
     if (error) {
