@@ -1,9 +1,10 @@
 import React from "react";
+import CalendarGrid from "./components/CalendarGrid";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Birthday Calendar App!</h1>
+    <div className="main-container">
+      <CalendarGrid />
     </div>
   );
 }
