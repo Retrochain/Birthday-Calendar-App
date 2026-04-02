@@ -43,7 +43,7 @@ function getCalendarDays(date) {
   return days;
 }
 
-export default function Calendar() {
+const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -123,3 +123,5 @@ export default function Calendar() {
     </div>
   );
 }
+
+export default Calendar;
