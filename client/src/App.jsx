@@ -1,4 +1,3 @@
-import React from "react";
 import CalendarGrid from "./components/CalendarGrid";
 import EditBirthdayButtons from "./components/birthday-components/EditBirthdayButtons";
 import UpcomingBirthdays from "./components/birthday-components/UpcomingBirthdays";
