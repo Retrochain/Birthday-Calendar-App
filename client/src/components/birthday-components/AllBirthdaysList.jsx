@@ -1,36 +1,61 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import supabase from "../../apis/supabaseClient.js";
+import { MONTH_NAMES } from "../../utils/CalendarUtils.js";
 
-// React component that displays a list of all birthdays for the current user
 const AllBirthdaysList = () => {
   const [birthdays, setBirthdays] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/birthdays/", {
-        headers: {
-          Authorization: `Bearer `},
-      })
-      .then((response) => {
+    const fetchBirthdays = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        const token = session?.access_token;
+
+        if (!token) {
+          console.error("No auth token found");
+          return;
+        }
+
+        const response = await axios.get("/api/birthdays", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         setBirthdays(response.data.data);
-        console.log("Fetched birthdays:", response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching birthdays:", error);
-      });
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching birthdays:", err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchBirthdays();
   }, []);
 
   return (
     <div className="all-birthdays">
       <h1 className="list-title">All Birthdays</h1>
-      {birthdays.map((birthday) => (
-        <div key={birthday.id} className="birthday-item">
-          {birthday.name} - {birthday.birthdate}
-        </div>
-      ))}
+      {error && <div className="error-message">Error: {error}</div>}
+      {loading && <div className="loading-message">Loading...</div>}
+      {birthdays.map((birthday) => {
+        const date = birthday.birthdate.split("-");
+        return (
+          <div key={birthday.id} className="birthday-item">
+            {birthday.name} - {MONTH_NAMES[Number.parseInt(date[1]) - 1]}{" "}
+            {date[2]}, {date[0]}: {birthday.note}
+          </div>
+        );
+      })}
     </div>
   );
 };
 
-// Export the AllBirthdaysList component as the default export of this module
 export default AllBirthdaysList;

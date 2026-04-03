@@ -2,7 +2,7 @@ import express from "express";
 // Import controller functions for handling birthday-related requests
 import {
   getAllBirthdays,
-  getBirthdayById,
+  getBirthdayByMonth,
   createBirthday,
   updateBirthday,
   deleteBirthday,
@@ -18,8 +18,8 @@ router.use(authMiddleware);
 // GET all birthdays
 router.get("/", getAllBirthdays);
 
-// GET a specific birthday by ID
-router.get("/:id", getBirthdayById);
+// GET a specific birthday by month
+router.get("/month/:month", getBirthdayByMonth);
 
 // POST a new birthday
 router.post("/", createBirthday);

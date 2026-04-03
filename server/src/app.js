@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Use the birthdays router for any routes that start with /birthdays
-app.use('/birthdays', birthdaysRouter);
+app.use('/api/birthdays', birthdaysRouter);
 
 // Define a simple route for the root URL that responds with "Hello, World!" when accessed
 app.get("/", (req, res) => {
