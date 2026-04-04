@@ -20,6 +20,7 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate }) => {
     // Attempt to update the birthday entry via the provided onUpdate function
     try {
       await onUpdate(birthday.id, { name, birthdate, note });
+      
       // Close the modal on successful update
       onClose();
     } catch (err) {

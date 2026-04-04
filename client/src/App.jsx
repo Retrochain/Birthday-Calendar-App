@@ -40,7 +40,7 @@ function App() {
   if (!user) return <AuthModal />;
 
   // getMonth() returns 0-11, so add 1 for 1-12
-  const currentMonth = selectedDate.getMonth() + 1;
+  const currentMonth = new Date().getMonth() + 1;
   // Filter upcoming birthdays client-side from the shared list
   const upcomingBirthdays = birthdays.filter((b) => {
     return new Date(b.birthdate).getUTCMonth() + 1 === currentMonth;

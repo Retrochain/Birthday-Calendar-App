@@ -32,44 +32,6 @@ const getAllBirthdays = async (req, res) => {
   }
 };
 
-// GET /birthdays/month/:month - Retrieve birthdays for a specific month from the database
-const getBirthdayByMonth = async (req, res) => {
-  // Fetch birthdays for a specific month from database
-  const { month } = req.params;
-
-  // Validate that month is a number between 1 and 12
-  const monthNum = Number.parseInt(month);
-  if (Number.isNaN(monthNum) || monthNum < 1 || monthNum > 12) {
-    return res
-      .status(400)
-      .json({ error: "Month must be a number between 1 and 12" });
-  }
-
-  try {
-    // Use Supabase client to call a stored procedure "get_birthdays_by_month" with the user ID and month number as parameters to retrieve the birthdays for that month
-    const { data, error } = await supabase.rpc("get_birthdays_by_month", {
-      p_user_id: req.user.id,
-      p_month: monthNum,
-    });
-
-    // If there is an error during the database query, return a 500 Internal Server Error response with the error message
-    if (error) {
-      return res
-        .status(500)
-        .json({ error: "Internal Server Error: " + error.message });
-    }
-
-    // If the query is successful, return the retrieved data as a JSON response
-    return res.json({ data });
-  } catch (error) {
-    // If there is an error during the process, catch it in the catch block
-    // Return a 500 Internal Server Error response with the error message
-    return res
-      .status(500)
-      .json({ error: "Internal Server Error " + error.message });
-  }
-};
-
 // POST /birthdays - Create a new birthday entry in the database
 const createBirthday = async (req, res) => {
   // Validate and save birthday to database
@@ -208,7 +170,6 @@ const deleteBirthday = async (req, res) => {
 // Export the controller functions for use in the routes
 export {
   getAllBirthdays,
-  getBirthdayByMonth,
   createBirthday,
   updateBirthday,
   deleteBirthday,

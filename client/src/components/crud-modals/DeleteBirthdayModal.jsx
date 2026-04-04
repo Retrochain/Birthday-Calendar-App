@@ -17,6 +17,7 @@ const DeleteBirthdayModal = ({ birthday, onClose, onDelete }) => {
     try {
       // Await the deletion process and then close the modal
       await onDelete(birthday.id);
+      
       // If successful, close the modal
       onClose();
     } catch (err) {

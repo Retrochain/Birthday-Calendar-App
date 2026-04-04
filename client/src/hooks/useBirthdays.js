@@ -9,7 +9,7 @@ export const useBirthdays = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to fetch all birthdays from the API
+  // GET - Function to fetch all birthdays from the API
   // useCallback is used to memoize the function, preventing unnecessary re-creations on re-renders
   const fetchBirthdays = useCallback(async () => {
     // Set loading state and clear any previous errors
@@ -33,7 +33,7 @@ export const useBirthdays = () => {
     }
   }, []);
 
-  // Function to add a new birthday via the API
+  // POST - Function to add a new birthday via the API
   // useCallback is used to memoize the function, and it depends on fetchBirthdays to refresh the list after adding a new birthday
   const addBirthday = useCallback(
     async ({ name, note, birthdate }) => {
@@ -58,7 +58,7 @@ export const useBirthdays = () => {
     [fetchBirthdays],
   ); // Dependency array includes fetchBirthdays to ensure it is updated if fetchBirthdays changes
 
-  // Function to update an existing birthday via the API
+  // PUT - Function to update an existing birthday via the API
   // useCallback is used to memoize the function, and it depends on fetchBirthdays to refresh the list after updating a birthday
   const updateBirthday = useCallback(
     async (id, updatedData) => {
@@ -83,7 +83,7 @@ export const useBirthdays = () => {
     [fetchBirthdays], // Dependency array includes fetchBirthdays to ensure it is updated if fetchBirthdays changes
   );
 
-  // Function to delete a birthday via the API
+  // DELETE - Function to delete a birthday via the API
   // useCallback is used to memoize the function, and it depends on fetchBirthdays to refresh the list after deleting a birthday
   const deleteBirthday = useCallback(
     async (id) => {

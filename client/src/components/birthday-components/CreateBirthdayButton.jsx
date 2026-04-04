@@ -2,7 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import NewBirthdayModal from "../crud-modals/NewBirthdayModal";
 
-
 // Component for the "Add Birthday" button and modal
 const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded }) => {
   // State to control the visibility of the create birthday modal

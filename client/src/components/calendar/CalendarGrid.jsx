@@ -34,10 +34,13 @@ const CalendarGrid = ({ setSelectedDate }) => {
   const handleSelectDate = (date) => {
     // Update the selected date state with the chosen date
     setSelectedDate(date);
+
     // Check if the selected date is in a different month than the current date, and if so, update the current date state to the selected date
     const isDifferentMonth =
       date.getMonth() !== currentDate.getMonth() ||
       date.getFullYear() !== currentDate.getFullYear();
+
+    // If the selected date is in a different month, update the current date to the selected date to navigate to that month in the calendar grid
     if (isDifferentMonth) setCurrentDate(date);
   };
 
@@ -115,7 +118,8 @@ const CalendarGrid = ({ setSelectedDate }) => {
 };
 
 CalendarGrid.propTypes = {
-  // Prop type validation for the setSelectedDate prop, which should be a function that updates the selected date state in the parent component and is required for the component to function properly
+  // Prop type validation for the setSelectedDate prop, which should be a function that updates the selected date state in the parent component 
+  // and is required for the component to function properly
   setSelectedDate: PropTypes.func.isRequired,
 };
 
