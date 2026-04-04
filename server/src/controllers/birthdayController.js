@@ -78,18 +78,21 @@ const createBirthday = async (req, res) => {
     const { name, birthdate, note } = req.body;
 
     // Validate that the name and birthdate are provided in the request body
-    if (!name || !birthdate) {
+    if (!name?.trim() || !birthdate) {
       // If either the name or birthdate is missing, return a 400 Bad Request response with an error message
       return res.status(400).json({ error: "name and birthdate are required" });
     }
+
+    // Normalize the name by trimming whitespace and converting it to lowercase to ensure consistency in the database
+    const normalizedName = name.trim().toLowerCase();
 
     // Check if a birthday for this person already exists
     const { data: existing } = await supabase
       .from("birthdays")
       .select("id")
-      .eq("name", name)
+      .eq("name", normalizedName)
       .eq("user_id", req.user.id)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return res
@@ -100,7 +103,14 @@ const createBirthday = async (req, res) => {
     // Use Supabase client to insert a new record into the "birthdays" table with the provided name, birthdate, and note
     const { data, error } = await supabase
       .from("birthdays")
-      .insert([{ name, birthdate, note }])
+      .insert([
+        {
+          name: normalizedName,
+          birthdate,
+          note,
+          user_id: req.user.id,
+        },
+      ])
       .select()
       .single();
 

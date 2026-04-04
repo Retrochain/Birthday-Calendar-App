@@ -19,6 +19,10 @@ const MONTH_NAMES = [
   "December",
 ];
 
+// Generate an array of years for the year selector dropdown, ranging from 60 years ago to 50 years in the future
+const currentYear = new Date().getFullYear();
+const YEARS = Array.from({ length: 110 }, (_, i) => currentYear - 60 + i);
+
 // Generates an array of day objects for the calendar grid based on the provided date
 function getCalendarDays(date) {
   // Extract the year and month from the provided date
@@ -69,4 +73,4 @@ function getCalendarDays(date) {
 }
 
 // Export the utility functions and constants for use in other components
-export { getCalendarDays, DAYS_OF_WEEK, MONTH_NAMES };
+export { getCalendarDays, DAYS_OF_WEEK, MONTH_NAMES, YEARS };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 // Import utility functions and constants for generating calendar data and displaying day names
-import { DAYS_OF_WEEK, getCalendarDays } from "../../utils/CalendarUtils.js";
+import { DAYS_OF_WEEK, YEARS, getCalendarDays } from "../../utils/CalendarUtils.js";
 import PropTypes from "prop-types";
 
 // React component that renders a calendar grid with navigation buttons and date selection functionality
@@ -45,17 +45,34 @@ const CalendarGrid = ({ setSelectedDate }) => {
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        {/* Render navigation buttons for previous month, next month, and today, along with the current month and year display */}
+        {/* Render navigation buttons for previous month, next month, and today, along with the current month display and year selector */}
         <button className="calendar-button-previous" onClick={prevMonth}>
           Prev
         </button>
-        <h3 className="current-month-year">
+
+        <h3 className="current-month">
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
-          {currentDate.getFullYear()}
         </h3>
+
+        <select
+          className="year-selector"
+          value={currentDate.getFullYear()}
+          onChange={(e) => {
+            const newYear = Number(e.target.value);
+            setCurrentDate(new Date(newYear, currentDate.getMonth(), 1));
+          }}
+        >
+          {YEARS.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+
         <button className="calendar-button-next" onClick={nextMonth}>
           Next
         </button>
+        
         <button className="calendar-button-today" onClick={goToToday}>
           Today
         </button>
