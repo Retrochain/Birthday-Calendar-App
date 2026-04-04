@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import supabase from "./apis/supabaseClient.js";
 
+// Import the necessary components for the application, including the calendar grid, birthday management buttons, lists of upcoming and all birthdays, and the authentication modal
 import CalendarGrid from "./components/calendar/CalendarGrid.jsx";
 import EditBirthdayButtons from "./components/birthday-components/EditBirthdayButtons";
 import UpcomingBirthdays from "./components/birthday-components/UpcomingBirthdays";
@@ -10,6 +11,8 @@ import AuthModal from "./components/auth/AuthModal.jsx";
 function App() {
   // State to hold the current authenticated user
   const [user, setUser] = useState(null);
+  // Add selectedDate state to manage the currently selected date in the calendar, which can be used for adding or editing birthdays
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // useEffect hook to check for an authenticated user on component mount and set up an authentication state change listener
   useEffect(() => {
@@ -39,8 +42,8 @@ function App() {
       <button className="logout-button" onClick={() => supabase.auth.signOut()}>
         Logout
       </button>
-      <CalendarGrid />
-      <EditBirthdayButtons />
+      <CalendarGrid setSelectedDate={setSelectedDate} />
+      <EditBirthdayButtons selectedDate={selectedDate} />
       <UpcomingBirthdays />
       <AllBirthdaysList />
     </div>

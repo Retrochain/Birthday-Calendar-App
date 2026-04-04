@@ -1,12 +1,12 @@
 import { useState } from "react";
 // Import utility functions and constants for generating calendar data and displaying day names
 import { DAYS_OF_WEEK, getCalendarDays } from "../../utils/CalendarUtils.js";
+import PropTypes from "prop-types";
 
 // React component that renders a calendar grid with navigation buttons and date selection functionality
-const Calendar = () => {
+const CalendarGrid = ({ setSelectedDate }) => {
   // Use the useState hook to manage the current date and the selected date in the calendar
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Generate the array of day objects for the calendar grid based on the current date
   const days = getCalendarDays(currentDate);
@@ -40,8 +40,6 @@ const Calendar = () => {
       date.getFullYear() !== currentDate.getFullYear();
     if (isDifferentMonth) setCurrentDate(date);
   };
-
-  console.log("selectedDate", selectedDate);
 
   // Render the calendar grid with navigation buttons and date selection functionality
   return (
@@ -99,5 +97,10 @@ const Calendar = () => {
   );
 };
 
-// Export the Calendar component as the default export of this module
-export default Calendar;
+CalendarGrid.propTypes = {
+  // Prop type validation for the setSelectedDate prop, which should be a function that updates the selected date state in the parent component and is required for the component to function properly
+  setSelectedDate: PropTypes.func.isRequired,
+};
+
+// Export the CalendarGrid component as the default export of this module
+export default CalendarGrid;

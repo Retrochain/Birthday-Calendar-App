@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 // Function to handle the Add Birthday click event
 function AddBirthday() {
@@ -16,9 +16,10 @@ function DeleteBirthday() {
 }
 
 // React component that renders buttons for adding, editing, and deleting birthdays, with corresponding click event handlers
-const EditBirthdayButtons = () => {
+const EditBirthdayButtons = ({ selectedDate }) => {
   return (
     <div className="birthday-btns">
+      <p className="temp">Selected Date: {selectedDate.toDateString()}</p>
       <button className="add-birthday-btn" onClick={AddBirthday}>
         Add Birthday
       </button>
@@ -30,6 +31,11 @@ const EditBirthdayButtons = () => {
       </button>
     </div>
   );
+};
+
+EditBirthdayButtons.propTypes = {
+  // Prop type validation for the selectedDate prop, which should be an instance of Date and is required for the component to function properly
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
 };
 
 // Export the EditBirthdayButtons component as the default export of this module
