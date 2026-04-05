@@ -30,19 +30,21 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate }) => {
 
   // Render the modal with form fields and buttons
   return (
-    <div className="modal-overlay">
-      <div className="modal">
+    <div className="edit-birthday-modal-overlay">
+      <div className="edit-birthday-modal">
         <h2>Edit Birthday</h2>
         <p>Date: {new Date(birthday.birthdate).toDateString()}</p>
 
         <input
           type="text"
+          className="edit-birthday-name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
         />
         <input
           type="text"
+          className="edit-birthday-note"
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="Note"
@@ -54,10 +56,14 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate }) => {
           placeholder={birthday.birthdate}
         />
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="edit-birthday-error">{error}</p>}
 
-        <button onClick={onClose}>Cancel</button>
-        <button onClick={handleSave}>Save</button>
+        <button className="edit-birthday-cancel-button" onClick={onClose}>
+          Cancel
+        </button>
+        <button className="edit-birthday-save-button" onClick={handleSave}>
+          Save
+        </button>
       </div>
     </div>
   );

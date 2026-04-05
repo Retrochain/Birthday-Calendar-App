@@ -94,6 +94,7 @@ export const useBirthdays = () => {
       try {
         // Await the response from the API after deleting the birthday
         await apiRequest({ method: "delete", url: `/api/birthdays/${id}` });
+        
         // After successfully deleting a birthday, fetch the updated list of birthdays to reflect the changes
         fetchBirthdays();
       } catch (err) {

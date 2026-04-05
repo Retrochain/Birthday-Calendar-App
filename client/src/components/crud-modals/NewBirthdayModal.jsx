@@ -50,10 +50,14 @@ const NewBirthdayModal = ({ selectedDate, onClose, onCreate }) => {
           placeholder="Note"
         />
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="new-birthday-error">{error}</p>}
 
-        <button onClick={onClose}>Cancel</button>
-        <button onClick={handleSave}>Save</button>
+        <button className="new-birthday-cancel-button" onClick={onClose}>
+          Cancel
+        </button>
+        <button className="new-birthday-save-button" onClick={handleSave}>
+          Save
+        </button>
       </div>
     </div>
   );

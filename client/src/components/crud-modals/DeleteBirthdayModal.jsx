@@ -28,18 +28,20 @@ const DeleteBirthdayModal = ({ birthday, onClose, onDelete }) => {
 
   // Render the modal with the birthday details and action buttons
   return (
-    <div className="modal-overlay">
-      <div className="modal">
+    <div className="delete-birthday-modal-overlay">
+      <div className="delete-birthday-modal">
         <h2>Delete Birthday</h2>
         <p>
           Are you sure you want to delete <strong>{birthday.name}</strong>’s
           birthday on {new Date(birthday.birthdate).toDateString()}?
         </p>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="delete-birthday-error">{error}</p>}
 
-        <button onClick={onClose} disabled={loading}>Cancel</button>
-        <button onClick={handleDelete} disabled={loading}>
+        <button className="delete-birthday-cancel-button" onClick={onClose} disabled={loading}>
+          Cancel
+        </button>
+        <button className="delete-birthday-save-button" onClick={handleDelete} disabled={loading}>
           {loading ? "Deleting..." : "Delete"}
         </button>
       </div>

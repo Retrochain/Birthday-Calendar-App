@@ -12,14 +12,14 @@ const AllBirthdaysList = ({ birthdays, loading, error, updateBirthday, deleteBir
 
   // Render the list of birthdays with appropriate messages for loading, errors, and empty state
   return (
-    <div className="all-birthdays">
-      <h1 className="list-title">All Birthdays</h1>
+    <div className="all-birthdays-container">
+      <h1 className="all-birthdays-title">All Birthdays</h1>
       
       {/* Display error message if there is an error, loading message if data is being fetched, and a message for no birthdays found */}
-      {error && <div className="error-message">Error: {error}</div>}
-      {loading && <div className="loading-message">Loading...</div>}
+      {error && <div className="ab-error-message">Error: {error}</div>}
+      {loading && <div className="ab-loading-message">Loading...</div>}
       {!loading && !error && birthdays.length === 0 && (
-        <div className="no-birthdays-message">No birthdays found.</div>
+        <div className="ab-no-birthdays-message">No birthdays found.</div>
       )}
 
       {/* Map through the list of birthdays and display each one with options to edit or delete */}
@@ -27,12 +27,16 @@ const AllBirthdaysList = ({ birthdays, loading, error, updateBirthday, deleteBir
         const [year, month, day] = birthday.birthdate.split("-");
         
         return (
-          <div key={birthday.id} className="birthday-item">
+          <div key={birthday.id} className="ab-birthday-item">
             {birthday.name} - {MONTH_NAMES[Number.parseInt(month) - 1]} {day},{" "}
             {year}: {birthday.note}
-            <div className="birthday-actions">
-              <button onClick={() => setEditingBirthday(birthday)}>Edit</button>
-              <button onClick={() => setDeletingBirthday(birthday)}>Delete</button>
+            <div className="ab-birthday-actions">
+              <button className="ab-edit-button" onClick={() => setEditingBirthday(birthday)}>
+                Edit
+              </button>
+              <button className="ab-delete-button" onClick={() => setDeletingBirthday(birthday)}>
+                Delete
+              </button>
             </div>
           </div>
         );

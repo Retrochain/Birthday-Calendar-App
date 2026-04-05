@@ -5,21 +5,21 @@ import { MONTH_NAMES } from "../../utils/CalendarUtils.js";
 const UpcomingBirthdays = ({ birthdays, loading, error }) => {
   // Render the list of upcoming birthdays, or appropriate messages for loading, errors, or no birthdays
   return (
-    <div className="upcoming-birthdays">
-      <h1 className="upcoming-title">Upcoming Birthdays</h1>
+    <div className="upcoming-birthdays-container">
+      <h1 className="upcoming-birthdays-title">Upcoming Birthdays</h1>
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message if there are no birthdays. */}
-      {error && <div className="error-message">Error: {error}</div>}
-      {loading && <div className="loading-message">Loading...</div>}
+      {error && <div className="ub-error-message">Error: {error}</div>}
+      {loading && <div className="ub-loading-message">Loading...</div>}
       {!loading && !error && (!birthdays || birthdays.length === 0) && (
-        <div className="no-birthdays-message">No birthdays this month.</div>
+        <div className="ub-no-birthdays-message">No birthdays this month.</div>
       )}
 
       {/* Map through the list of birthdays and display each one with the name, formatted birthdate, and note. */}
       {birthdays.map((birthday) => {
         const [year, month, day] = birthday.birthdate.split("-");
         return (
-          <div key={birthday.id} className="birthday-item">
+          <div key={birthday.id} className="ub-birthday-item">
             {birthday.name} - {MONTH_NAMES[Number.parseInt(month) - 1]} {day},{" "}
             {year}: {birthday.note}
           </div>

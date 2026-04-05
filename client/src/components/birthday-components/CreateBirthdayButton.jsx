@@ -30,7 +30,7 @@ const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded }) => {
 
   // Render the "Add Birthday" button and the create birthday modal if showCreateModal is true
   return (
-    <div className="birthday-btns">
+    <div className="birthday-btn-container">
       <button className="add-birthday-btn" onClick={() => setShowCreateModal(true)}>
         Add Birthday
       </button>

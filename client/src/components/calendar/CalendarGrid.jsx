@@ -1,5 +1,5 @@
 import { useState } from "react";
-// Import utility functions and constants for generating calendar data and displaying day names
+// Import utility functions and constants for generating calendar data and displaying day names and month names in the calendar components
 import { DAYS_OF_WEEK, YEARS, getCalendarDays } from "../../utils/CalendarUtils.js";
 import PropTypes from "prop-types";
 
@@ -57,14 +57,19 @@ const CalendarGrid = ({ setSelectedDate }) => {
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
         </h3>
 
+        {/* Year selector that allows users to quickly navigate to a different year in the calendar grid. */}
         <select
           className="year-selector"
           value={currentDate.getFullYear()}
           onChange={(e) => {
+            // Parse the selected year from the dropdown and update the current date state to reflect the new year.
             const newYear = Number(e.target.value);
+
+            // Update the current date to the new year, which will trigger a re-render of the calendar grid with the new year's dates
             setCurrentDate(new Date(newYear, currentDate.getMonth(), 1));
           }}
         >
+          {/* Render the options for the year selector dropdown, allowing users to choose from a range of years defined in the YEARS constant. */}
           {YEARS.map((year) => (
             <option key={year} value={year}>
               {year}

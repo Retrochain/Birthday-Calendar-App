@@ -48,7 +48,7 @@ function App() {
 
   // Render the main application UI, passing necessary props to child components
   return (
-    <div className="main-container">
+    <div className="main-app-container">
       <CalendarGrid
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
