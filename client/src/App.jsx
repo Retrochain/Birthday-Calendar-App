@@ -50,7 +50,7 @@ function App() {
 
   // Render the main application UI, passing necessary props to child components
   return (
-    <div className="flex flex-col container mx-auto px-4 border">
+    <div className="flex flex-col container mx-auto px-4">
       <h1 className="font-bebas text-left mt-8 uppercase text-6xl">Birthday Calendar</h1>
       <div className="flex flex-col sm:flex-row justify-between mt-10 gap-4">
         <CalendarGrid
