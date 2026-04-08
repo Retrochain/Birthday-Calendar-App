@@ -46,20 +46,20 @@ const CalendarGrid = ({ setSelectedDate }) => {
 
   // Render the calendar grid with navigation buttons and date selection functionality
   return (
-    <div className="calendar-container">
-      <div className="calendar-header">
+    <div className="container mx-auto">
+      <div className="inline-flex items-center justify-center gap-4 mb-4 text-xl">
         {/* Render navigation buttons for previous month, next month, and today, along with the current month display and year selector */}
-        <button className="calendar-button-previous" onClick={prevMonth}>
+        <button className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded" onClick={prevMonth}>
           Prev
         </button>
 
-        <h3 className="current-month">
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+        <h3 className="text-2xl font-bold ">
+          {currentDate.toLocaleString("default", { month: "short" })}{" "}
         </h3>
 
         {/* Year selector that allows users to quickly navigate to a different year in the calendar grid. */}
         <select
-          className="year-selector"
+          className="year-selector border border-gray-300 rounded px-2 py-1 font-semibold text-2xl"
           value={currentDate.getFullYear()}
           onChange={(e) => {
             // Parse the selected year from the dropdown and update the current date state to reflect the new year.
@@ -77,20 +77,20 @@ const CalendarGrid = ({ setSelectedDate }) => {
           ))}
         </select>
 
-        <button className="calendar-button-next" onClick={nextMonth}>
+        <button className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded" onClick={nextMonth}>
           Next
         </button>
         
-        <button className="calendar-button-today" onClick={goToToday}>
+        <button className="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1 px-3 rounded" onClick={goToToday}>
           Today
         </button>
       </div>
 
       {/* Render the calendar grid with the days of the week and the day buttons for each date in the calendar */}
-      <div className="calendar-grid">
+      <div className=" flex-row border rounded-lg">
         {/* Render the days of the week as headers for the calendar grid */}
         {DAYS_OF_WEEK.map((day) => (
-          <span className="calendar-weekdays" key={day}>
+          <span className="" key={day}>
             {day}
           </span>
         ))}

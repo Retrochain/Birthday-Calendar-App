@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import supabase from "./apis/supabaseClient.js";
 import { useBirthdays } from "./hooks/useBirthdays.js";
 
+import "./index.css";
+
 import CalendarGrid from "./components/calendar/CalendarGrid";
 import CreateBirthdayButton from "./components/birthday-components/CreateBirthdayButton";
 import UpcomingBirthdays from "./components/birthday-components/UpcomingBirthdays";
@@ -48,28 +50,35 @@ function App() {
 
   // Render the main application UI, passing necessary props to child components
   return (
-    <div className="main-app-container">
-      <CalendarGrid
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-      />
-      <CreateBirthdayButton
-        selectedDate={selectedDate}
-        addBirthday={addBirthday}
-        onAdded={fetchBirthdays}
-      />
-      <UpcomingBirthdays
-        birthdays={upcomingBirthdays}
-        loading={loading}
-        error={error}
-      />
-      <AllBirthdaysList
-        birthdays={birthdays}
-        loading={loading}
-        error={error}
-        updateBirthday={updateBirthday}
-        deleteBirthday={deleteBirthday}
-      />
+    <div className="flex flex-col container mx-auto px-4 border">
+      <h1 className="font-bebas text-left mt-8 uppercase text-6xl">Birthday Calendar</h1>
+      <div className="flex flex-col sm:flex-row justify-between mt-10 gap-4">
+        <CalendarGrid
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+        <div className="flex flex-col gap-4">
+          <CreateBirthdayButton
+            selectedDate={selectedDate}
+            addBirthday={addBirthday}
+            onAdded={fetchBirthdays}
+          />
+          <UpcomingBirthdays
+            birthdays={upcomingBirthdays}
+            loading={loading}
+            error={error}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col justify-content mt-8">
+        <AllBirthdaysList
+          birthdays={birthdays}
+          loading={loading}
+          error={error}
+          updateBirthday={updateBirthday}
+          deleteBirthday={deleteBirthday}
+        />
+      </div>
     </div>
   );
 }

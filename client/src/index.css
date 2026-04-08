@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+
+@layer base {
+    body {
+        @apply min-h-screen bg-linear-to-br from-[#3f0a73] via-[#2d0a4f] to-[#16012b] text-gray-300 subpixel-antialiased;
+    }
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .font-bebas {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+}
