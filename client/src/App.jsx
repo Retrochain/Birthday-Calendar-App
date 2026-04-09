@@ -51,11 +51,16 @@ function App() {
   // Render the main application UI, passing necessary props to child components
   return (
     <div className="flex flex-col container mx-auto px-4">
-      <h1 className="font-bebas text-left mt-8 uppercase text-6xl">Birthday Calendar</h1>
+      <h1 className="flex flex-row text-left mt-8 uppercase text-6xl font-bebas">
+        Birthday
+        <br />
+        Calendar
+      </h1>
+
       <div className="flex flex-col sm:flex-row justify-between mt-10 gap-4">
         <CalendarGrid
-          selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          upcomingBirthdays={birthdays}
         />
         <div className="flex flex-col gap-4">
           <CreateBirthdayButton

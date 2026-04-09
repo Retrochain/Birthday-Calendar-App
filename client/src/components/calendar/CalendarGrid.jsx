@@ -8,7 +8,7 @@ import {
 import PropTypes from "prop-types";
 
 // React component that renders a calendar grid with navigation buttons and date selection functionality
-const CalendarGrid = ({ setSelectedDate }) => {
+const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
   // Get the current date to use for navigating to the current month and highlighting today's date in the calendar grid
   const today = new Date();
 
@@ -58,7 +58,7 @@ const CalendarGrid = ({ setSelectedDate }) => {
     return isSameDay && isSameMonth && isSameYear;
   };
 
-  // This method checks if the provided date is the one that is currently selected 
+  // This method checks if the provided date is the one that is currently selected
   const isSelected = (date) => {
     if (!selectedDateState) return false;
 
@@ -77,36 +77,36 @@ const CalendarGrid = ({ setSelectedDate }) => {
   // Helper function to display conditional tailwind css styles
   const getDateButtonClass = (cellDate, monthOffset) => {
     if (!isCurrentMonth(monthOffset)) {
-      return "text-gray-400 border-gray-400 hover:bg-orange-500 hover:text-white hover:ring-2 hover:ring-orange-600 hover:ring-opacity-50";
+      return "text-gray-400 border-gray-400 hover:bg-[#e77e28] hover:text-white hover:ring-2 hover:ring-[#e77e28] hover:ring-opacity-50";
     }
     if (isSelected(cellDate)) {
-      return "bg-orange-700 text-white ring-3 ring-orange-800 ring-opacity-40";
+      return "bg-orange-700 text-white ring-3 ring-orange-800 ring-opacity-40 shadow-md";
     }
     if (isToday(cellDate)) {
-      return "bg-purple-600 text-white ring-3 ring-purple-800 ring-opacity-40";
+      return "bg-purple-600 text-white ring-3 ring-purple-800 ring-opacity-40 shadow-md";
     }
     return "hover:bg-orange-500 hover:ring-2 hover:ring-orange-600";
   };
 
   // Render the calendar grid with navigation buttons and date selection functionality
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto p-4 bg-[#3c1b5c] rounded-xl shadow-lg shadow-black/40">
       <div className="inline-flex items-center justify-center gap-4 mb-4 text-xl flex-wrap">
         {/* Render navigation buttons for previous month, next month, and today, along with the current month display and year selector */}
         <button
-          className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded"
+          className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300"
           onClick={prevMonth}
         >
           Prev
         </button>
 
-        <h3 className="text-2xl font-bold ">
+        <h3 className="text-2xl font-bold">
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
         </h3>
 
         {/* Year selector that allows users to quickly navigate to a different year in the calendar grid. */}
         <select
-          className="year-selector border-2 border-gray-300 rounded px-2 py-1 font-semibold text-2xl"
+          className="border-2 border-purple-700 bg-[#4b2270] rounded-lg shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 text-white px-2 py-1 font-semibold text-2xl"
           value={currentDate.getFullYear()}
           onChange={(e) => {
             // Parse the selected year from the dropdown and update the current date state to reflect the new year.
@@ -121,7 +121,11 @@ const CalendarGrid = ({ setSelectedDate }) => {
             <option
               key={year}
               value={year}
-              className="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1 px-2 rounded"
+              className={`bg-[#4b2270] text-white ${
+                year === currentDate.getFullYear()
+                  ? "bg-purple-600 font-bold text-white"
+                  : ""
+              }`}
             >
               {year}
             </option>
@@ -129,14 +133,14 @@ const CalendarGrid = ({ setSelectedDate }) => {
         </select>
 
         <button
-          className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded"
+          className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300"
           onClick={nextMonth}
         >
           Next
         </button>
 
         <button
-          className="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1 px-3 rounded"
+          className="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300"
           onClick={goToToday}
         >
           Today
@@ -144,7 +148,7 @@ const CalendarGrid = ({ setSelectedDate }) => {
       </div>
 
       {/* Render the calendar grid with the days of the week and the day buttons for each date in the calendar */}
-      <div className="flex-row border border-gray-400  rounded-t-lg grid grid-cols-7 w-full bg-purple-900">
+      <div className="flex-row border border-purple-600 rounded-t-lg grid grid-cols-7 w-full bg-purple-900">
         {/* Render the days of the week as headers for the calendar grid */}
         {DAYS_OF_WEEK.map((day) => (
           <span
@@ -157,7 +161,7 @@ const CalendarGrid = ({ setSelectedDate }) => {
       </div>
 
       {/* Render the day buttons for each date in the calendar grid, allowing users to select a date and navigate to different months if necessary */}
-      <div className="grid grid-cols-7 w-full">
+      <div className="grid grid-cols-7 w-full bg-purple-900 rounded-t-xl border-b-2 border-purple-600">
         {days.map((item) => {
           // Calculate the date for each cell in the calendar grid based on the current date and the month offset for the day object
           const cellDate = new Date(
@@ -166,14 +170,59 @@ const CalendarGrid = ({ setSelectedDate }) => {
             item.day,
           );
 
+          const birthdaysForDay = upcomingBirthdays.filter((ub) => {
+            const [, month, day] = ub.birthdate.split("-");
+            return (
+              cellDate.getMonth() === Number(month) - 1 &&
+              cellDate.getDate() === Number(day)
+            );
+          });
+
           // Render a button for each day in the calendar grid
           return (
             <button
-              className={`border border-gray-400 px-3 py-4 text-center text-xl font-semibold transition-colors duration-400 ${getDateButtonClass(cellDate, item.monthOffset)}`}
+              className={`relative border border-purple-600 hover:shadow-md h-16 md:h-30 px-2 py-6 text-left text-lg font-semibold transition-colors duration-400 ${getDateButtonClass(cellDate, item.monthOffset)}`}
               key={item.key}
               onClick={() => handleSelectDate(cellDate, item.isCurrentMonth)}
             >
-              {item.day}
+              {/* Day number rendered in the top-left */}
+              <span className="absolute top-1 left-2 text-md font-bold">
+                {item.day}
+              </span>
+
+              {/* Display for the current birthdays for each day*/}
+              {item.monthOffset === 0 && (
+                <>
+                  {/* For mobile screen we will show dots (upto 3) */}
+                  <div className="flex sm:hidden gap-1 mt-5">
+                    {birthdaysForDay.slice(0, 3).map((j, i) => (
+                      <div
+                        key={j + i}
+                        className="w-2 h-2 bg-orange-400 rounded-full"
+                      />
+                    ))}
+                  </div>
+
+                  {/* For desktop screens we will show names (upto 2) */}
+                  <div className="hidden sm:flex flex-col gap-0.5 mt-3 text-md">
+                    {birthdaysForDay.slice(0, 2).map((ub) => (
+                      <span
+                        key={`${ub.name}-${ub.birthdate}`}
+                        className="truncate capitalize text-orange-950 rounded px-1 bg-linear-to-t from-orange-400 to-orange-200"
+                      >
+                        {ub.name}
+                      </span>
+                    ))}
+
+                    {/* For more then 2 birthdays, just display a count of however many extra birthdays there are */}
+                    {birthdaysForDay.length > 2 && (
+                      <span className="text-sm text-gray-300">
+                        +{birthdaysForDay.length - 2}
+                      </span>
+                    )}
+                  </div>
+                </>
+              )}
             </button>
           );
         })}
@@ -186,6 +235,12 @@ CalendarGrid.propTypes = {
   // Prop type validation for the setSelectedDate prop, which should be a function that updates the selected date state in the parent component
   // and is required for the component to function properly
   setSelectedDate: PropTypes.func.isRequired,
+  upcomingBirthdays: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      birthdate: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 // Export the CalendarGrid component as the default export of this module
