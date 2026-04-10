@@ -8,7 +8,7 @@ import {
 import PropTypes from "prop-types";
 
 // React component that renders a calendar grid with navigation buttons and date selection functionality
-const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
+const CalendarGrid = ({ setSelectedDate, upcomingBirthdays, theme }) => {
   // Get the current date to use for navigating to the current month and highlighting today's date in the calendar grid
   const today = new Date();
 
@@ -77,24 +77,26 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
   // Helper function to display conditional tailwind css styles
   const getDateButtonClass = (cellDate, monthOffset) => {
     if (!isCurrentMonth(monthOffset)) {
-      return "text-gray-400 border-gray-400 hover:bg-[#e77e28] hover:text-white hover:ring-2 hover:ring-[#e77e28] hover:ring-opacity-50";
+      return theme.day.outside;
     }
     if (isSelected(cellDate)) {
-      return "bg-orange-700 text-white ring-3 ring-orange-800 ring-opacity-40 shadow-md";
+      return theme.day.selected;
     }
     if (isToday(cellDate)) {
-      return "bg-purple-600 text-white ring-3 ring-purple-800 ring-opacity-40 shadow-md";
+      return theme.day.today;
     }
-    return "hover:bg-orange-500 hover:ring-2 hover:ring-orange-600";
+    return theme.day.default;
   };
 
   // Render the calendar grid with navigation buttons and date selection functionality
   return (
-    <div className="container mx-auto p-4 bg-[#3c1b5c] rounded-xl shadow-lg shadow-black/40">
+    <div
+      className={`${theme.container} container mx-auto p-4 rounded-xl shadow-lg shadow-black/40`}
+    >
       <div className="inline-flex items-center justify-center gap-4 mb-4 text-xl flex-wrap">
         {/* Render navigation buttons for previous month, next month, and today, along with the current month display and year selector */}
         <button
-          className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300"
+          className={`${theme.buttonPrimary} font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300`}
           onClick={prevMonth}
         >
           Prev
@@ -106,7 +108,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
 
         {/* Year selector that allows users to quickly navigate to a different year in the calendar grid. */}
         <select
-          className="border-2 border-purple-700 bg-[#4b2270] rounded-lg shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 text-white px-2 py-1 font-semibold text-2xl"
+          className={`${theme.select} rounded-lg shadow-sm hover:shadow-lg focus:outline-none transition-all duration-300 px-2 py-1 font-semibold text-2xl`}
           value={currentDate.getFullYear()}
           onChange={(e) => {
             // Parse the selected year from the dropdown and update the current date state to reflect the new year.
@@ -121,10 +123,8 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
             <option
               key={year}
               value={year}
-              className={`bg-[#4b2270] text-white ${
-                year === currentDate.getFullYear()
-                  ? "bg-purple-600 font-bold text-white"
-                  : ""
+              className={`${theme.option} ${
+                year === currentDate.getFullYear() ? theme.optionSelected : ""
               }`}
             >
               {year}
@@ -133,14 +133,14 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
         </select>
 
         <button
-          className="bg-orange-500 hover:bg-orange-400 text-white font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300"
+          className={`${theme.buttonPrimary} font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300`}
           onClick={nextMonth}
         >
           Next
         </button>
 
         <button
-          className="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300"
+          className={`${theme.buttonSecondary} font-semibold py-1 px-3 rounded shadow-sm hover:shadow-lg transition-shadow duration-300`}
           onClick={goToToday}
         >
           Today
@@ -148,7 +148,9 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
       </div>
 
       {/* Render the calendar grid with the days of the week and the day buttons for each date in the calendar */}
-      <div className="flex-row border border-purple-600 rounded-t-lg grid grid-cols-7 w-full bg-purple-900">
+      <div
+        className={`${theme.header} grid grid-cols-7 w-full rounded-t-xl border-b-2`}
+      >
         {/* Render the days of the week as headers for the calendar grid */}
         {DAYS_OF_WEEK.map((day) => (
           <span
@@ -161,7 +163,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
       </div>
 
       {/* Render the day buttons for each date in the calendar grid, allowing users to select a date and navigate to different months if necessary */}
-      <div className="grid grid-cols-7 w-full bg-purple-900 rounded-t-xl border-b-2 border-purple-600">
+      <div className={`${theme.grid} grid grid-cols-7 w-full border-b-2`}>
         {days.map((item) => {
           // Calculate the date for each cell in the calendar grid based on the current date and the month offset for the day object
           const cellDate = new Date(
@@ -181,7 +183,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
           // Render a button for each day in the calendar grid
           return (
             <button
-              className={`relative border border-purple-600 hover:shadow-md h-16 md:h-30 px-2 py-6 text-left text-lg font-semibold transition-colors duration-400 ${getDateButtonClass(cellDate, item.monthOffset)}`}
+              className={`relative border hover:shadow-md h-16 md:h-30 px-2 py-6 text-left text-lg font-semibold transition-colors duration-400 ${theme.cell} ${getDateButtonClass(cellDate, item.monthOffset)}`}
               key={item.key}
               onClick={() => handleSelectDate(cellDate, item.isCurrentMonth)}
             >
@@ -198,7 +200,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
                     {birthdaysForDay.slice(0, 3).map((j, i) => (
                       <div
                         key={j + i}
-                        className="w-2 h-2 bg-orange-400 rounded-full"
+                        className={`${theme.birthdayDot} w-2 h-2 rounded-full`}
                       />
                     ))}
                   </div>
@@ -208,7 +210,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays }) => {
                     {birthdaysForDay.slice(0, 2).map((ub) => (
                       <span
                         key={`${ub.name}-${ub.birthdate}`}
-                        className="truncate capitalize text-orange-950 rounded px-1 bg-linear-to-t from-orange-400 to-orange-200"
+                        className={`${theme.birthdayTag} truncate capitalize rounded px-1`}
                       >
                         {ub.name}
                       </span>
@@ -241,6 +243,29 @@ CalendarGrid.propTypes = {
       birthdate: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  theme: PropTypes.shape({
+    container: PropTypes.string,
+    header: PropTypes.string,
+    grid: PropTypes.string,
+    cell: PropTypes.string,
+
+    buttonPrimary: PropTypes.string,
+    buttonSecondary: PropTypes.string,
+
+    select: PropTypes.string,
+    option: PropTypes.string,
+    optionSelected: PropTypes.string,
+
+    birthdayDot: PropTypes.string,
+    birthdayTag: PropTypes.string,
+
+    day: PropTypes.shape({
+      default: PropTypes.string,
+      outside: PropTypes.string,
+      selected: PropTypes.string,
+      today: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 // Export the CalendarGrid component as the default export of this module

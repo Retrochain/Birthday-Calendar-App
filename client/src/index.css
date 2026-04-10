@@ -3,8 +3,38 @@
 
 @layer base {
     body {
-        @apply min-h-screen bg-linear-to-br from-[#3f0a73] via-[#2d0a4f] to-[#16012b] text-gray-300 subpixel-antialiased;
-    }
+    @apply min-h-screen text-gray-300 subpixel-antialiased;
+    background: var(--bg-gradient);
+  }
+}
+
+:root {
+  --bg-gradient: #ffffff94;
+}
+
+/* Default Theme */
+.theme-default {
+  --bg-gradient: #ffffff94;
+}
+
+/* Orange Theme */
+.theme-orange {
+  --bg-gradient: linear-gradient(to bottom right, #ffffff, #ffedd5, #f97316);
+}
+
+/* Teal Theme */
+.theme-teal {
+  --bg-gradient: linear-gradient(to bottom right, #ffffff, #ccfbf1, #14b8a6);
+}
+
+/* Dark Theme */
+.theme-dark {
+  --bg-gradient: linear-gradient(to bottom right, #111827, #1f2937, #030712);
+}
+
+/* Midnight Purple (default) */
+.theme-midnightPurple {
+  --bg-gradient: linear-gradient(to bottom right, #3f0a73, #2d0a4f, #16012b);
 }
 
 @font-face {

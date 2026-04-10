@@ -1,5 +1,5 @@
 // This custom hook manages the state and API interactions for birthdays, providing a clean interface for components to use.
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { apiRequest } from "../utils/RequestHelper";
 
 // Custom hook to manage birthdays data and API interactions
@@ -94,7 +94,7 @@ export const useBirthdays = () => {
       try {
         // Await the response from the API after deleting the birthday
         await apiRequest({ method: "delete", url: `/api/birthdays/${id}` });
-        
+
         // After successfully deleting a birthday, fetch the updated list of birthdays to reflect the changes
         fetchBirthdays();
       } catch (err) {
@@ -103,6 +103,15 @@ export const useBirthdays = () => {
     },
     [fetchBirthdays], // Dependency array includes fetchBirthdays to ensure it is updated if fetchBirthdays changes
   );
+
+  // Method to get the birthdays in the current month that gets calculated between renders
+  const upcomingBirthdays = useMemo(() => {
+    const currentMonth = new Date().getMonth() + 1;
+
+    return birthdays.filter((b) => {
+      return new Date(b.birthdate).getUTCMonth() + 1 === currentMonth;
+    });
+  }, [birthdays]);
 
   // useEffect to fetch birthdays when the component using this hook mounts
   useEffect(() => {
@@ -118,5 +127,6 @@ export const useBirthdays = () => {
     addBirthday,
     updateBirthday,
     deleteBirthday,
+    upcomingBirthdays,
   };
 };

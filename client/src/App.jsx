@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import supabase from "./apis/supabaseClient.js";
+import { useState } from "react";
+
+import { useAuth } from "./hooks/useAuth.js";
+import { useTheme } from "./hooks/useTheme.js";
 import { useBirthdays } from "./hooks/useBirthdays.js";
 
 import "./index.css";
@@ -9,14 +11,24 @@ import CreateBirthdayButton from "./components/birthday-components/CreateBirthda
 import UpcomingBirthdays from "./components/birthday-components/UpcomingBirthdays";
 import AllBirthdaysList from "./components/birthday-components/AllBirthdaysList";
 import AuthModal from "./components/auth/AuthModal";
+import ThemeSelector from "./components/themes/ThemeSelector";
+
+import THEMES from "./utils/Themes.js";
 
 function App() {
-  // User state to manage authentication status
-  const [user, setUser] = useState(null);
-  // State to track the currently selected date in the calendar
+  // First get the user
+  const user = useAuth();
+
+  // Then get the theme
+  const { theme, setTheme, themeButtonClass } = useTheme();
+
+  // Set the current theme appropriately
+  const currentTheme = THEMES[theme] || THEMES.default;
+
+  // Set a selected date variable to track said selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // Single instance of useBirthdays — shared across all components
+  // Import all the useful functions and objects required from useBirthdays
   const {
     birthdays,
     loading,
@@ -25,49 +37,43 @@ function App() {
     addBirthday,
     updateBirthday,
     deleteBirthday,
+    upcomingBirthdays,
   } = useBirthdays();
 
-  // On component mount, check for authenticated user and set up auth state listener
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
-
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => setUser(session?.user || null),
-    );
-
-    return () => listener.subscription.unsubscribe();
-  }, []);
-
-  // If there is no authenticated user, show the authentication modal
+  // If user is not logged in then only show a login modal
   if (!user) return <AuthModal />;
 
-  // getMonth() returns 0-11, so add 1 for 1-12
-  const currentMonth = new Date().getMonth() + 1;
-  // Filter upcoming birthdays client-side from the shared list
-  const upcomingBirthdays = birthdays.filter((b) => {
-    return new Date(b.birthdate).getUTCMonth() + 1 === currentMonth;
-  });
-
-  // Render the main application UI, passing necessary props to child components
+  // Otherwise show all the componenets
   return (
     <div className="flex flex-col container mx-auto px-4">
-      <h1 className="flex flex-row text-left mt-8 uppercase text-6xl font-bebas">
+      <h1
+        className={`${currentTheme.title} flex flex-row text-left mt-8 uppercase text-7xl font-bebas`}
+      >
         Birthday
         <br />
         Calendar
       </h1>
 
+      <ThemeSelector
+        theme={theme}
+        setTheme={setTheme}
+        themeButtonClass={themeButtonClass}
+      />
+
       <div className="flex flex-col sm:flex-row justify-between mt-10 gap-4">
         <CalendarGrid
           setSelectedDate={setSelectedDate}
           upcomingBirthdays={birthdays}
+          theme={currentTheme}
         />
+
         <div className="flex flex-col gap-4">
           <CreateBirthdayButton
             selectedDate={selectedDate}
             addBirthday={addBirthday}
             onAdded={fetchBirthdays}
           />
+
           <UpcomingBirthdays
             birthdays={upcomingBirthdays}
             loading={loading}
@@ -75,6 +81,7 @@ function App() {
           />
         </div>
       </div>
+
       <div className="flex flex-col justify-content mt-8">
         <AllBirthdaysList
           birthdays={birthdays}
@@ -88,5 +95,4 @@ function App() {
   );
 }
 
-// Export the App component as the default export for use in index.js
 export default App;
