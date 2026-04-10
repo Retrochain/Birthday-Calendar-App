@@ -67,28 +67,31 @@ function App() {
           theme={currentTheme}
         />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 p-4 pt-0">
           <CreateBirthdayButton
             selectedDate={selectedDate}
             addBirthday={addBirthday}
             onAdded={fetchBirthdays}
+            theme={currentTheme}
           />
 
           <UpcomingBirthdays
             birthdays={upcomingBirthdays}
             loading={loading}
             error={error}
+            theme={currentTheme}
           />
         </div>
       </div>
 
-      <div className="flex flex-col justify-content mt-8">
+      <div className="flex flex-col justify-content mt-8 p-4 pt-0">
         <AllBirthdaysList
           birthdays={birthdays}
           loading={loading}
           error={error}
           updateBirthday={updateBirthday}
           deleteBirthday={deleteBirthday}
+          theme={currentTheme}
         />
       </div>
     </div>

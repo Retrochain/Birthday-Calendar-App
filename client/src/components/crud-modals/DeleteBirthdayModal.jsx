@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 // Modal for confirming deletion of a birthday entry
-const DeleteBirthdayModal = ({ birthday, onClose, onDelete }) => {
+const DeleteBirthdayModal = ({ birthday, onClose, onDelete, theme }) => {
   // Local state for handling errors and loading state during deletion
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const DeleteBirthdayModal = ({ birthday, onClose, onDelete }) => {
     try {
       // Await the deletion process and then close the modal
       await onDelete(birthday.id);
-      
+
       // If successful, close the modal
       onClose();
     } catch (err) {
@@ -28,22 +28,37 @@ const DeleteBirthdayModal = ({ birthday, onClose, onDelete }) => {
 
   // Render the modal with the birthday details and action buttons
   return (
-    <div className="delete-birthday-modal-overlay">
-      <div className="delete-birthday-modal">
-        <h2>Delete Birthday</h2>
-        <p>
-          Are you sure you want to delete <strong>{birthday.name}</strong>’s
-          birthday on {new Date(birthday.birthdate).toDateString()}?
+    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+      <div
+        className={`${theme.container} w-full max-w-md p-6 rounded-xl shadow-xl`}
+      >
+        <h2 className="text-2xl font-semibold mb-3">Delete Birthday</h2>
+
+        <p className="mb-4 text-xl">
+          Are you sure you want to delete{" "}
+          <strong className="capitalize">{birthday.name}</strong>’s birthday on{" "}
+          {new Date(birthday.birthdate).toDateString()}?
         </p>
 
-        {error && <p className="delete-birthday-error">{error}</p>}
+        {error && <p className="mb-3">{error}</p>}
 
-        <button className="delete-birthday-cancel-button" onClick={onClose} disabled={loading}>
-          Cancel
-        </button>
-        <button className="delete-birthday-save-button" onClick={handleDelete} disabled={loading}>
-          {loading ? "Deleting..." : "Delete"}
-        </button>
+        <div className="flex justify-end gap-2">
+          <button
+            className={`${theme.buttonPrimary} px-3 py-1 rounded font-semibold text-xl`}
+            onClick={onClose}
+            disabled={loading}
+          >
+            Cancel
+          </button>
+
+          <button
+            className={`${theme.buttonSecondary} px-3 py-1 rounded font-semibold text-xl`}
+            onClick={handleDelete}
+            disabled={loading}
+          >
+            {loading ? "Deleting..." : "Delete"}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -58,6 +73,12 @@ DeleteBirthdayModal.propTypes = {
   }).isRequired,
   onClose: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+
+  theme: PropTypes.shape({
+    container: PropTypes.string,
+    buttonPrimary: PropTypes.string,
+    buttonSecondary: PropTypes.string,
+  }).isRequired,
 };
 
 // Export the component for use in other parts of the application

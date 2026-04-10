@@ -5,42 +5,70 @@ import EditBirthdayModal from "../crud-modals/EditBirthdayModal";
 import DeleteBirthdayModal from "../crud-modals/DeleteBirthdayModal";
 
 // Component to display a list of all birthdays with options to edit or delete each entry
-const AllBirthdaysList = ({ birthdays, loading, error, updateBirthday, deleteBirthday }) => {
+const AllBirthdaysList = ({
+  birthdays,
+  loading,
+  error,
+  updateBirthday,
+  deleteBirthday,
+  theme,
+}) => {
   // State to manage the currently editing and deleting birthday entries
   const [editingBirthday, setEditingBirthday] = useState(null);
   const [deletingBirthday, setDeletingBirthday] = useState(null);
 
   // Render the list of birthdays with appropriate messages for loading, errors, and empty state
   return (
-    <div className="all-birthdays-container">
-      <h1 className="all-birthdays-title">All Birthdays</h1>
-      
+    <div className="container mx-auto items-center justify-center pl-2">
+      <h1 className={`${theme.title} font-bebas text-5xl`}>All Birthdays</h1>
+
       {/* Display error message if there is an error, loading message if data is being fetched, and a message for no birthdays found */}
-      {error && <div className="ab-error-message">Error: {error}</div>}
-      {loading && <div className="ab-loading-message">Loading...</div>}
+      {error && <div className="mt-3 text-3xl">Error: {error}</div>}
+      {loading && <div className="mt-3 text-3xl">Loading...</div>}
       {!loading && !error && birthdays.length === 0 && (
-        <div className="ab-no-birthdays-message">No birthdays found.</div>
+        <div className="mt-3 text-2xl">No birthdays found.</div>
       )}
 
       {/* Map through the list of birthdays and display each one with options to edit or delete */}
-      {birthdays.map((birthday) => {
-        const [year, month, day] = birthday.birthdate.split("-");
-        
-        return (
-          <div key={birthday.id} className="ab-birthday-item">
-            {birthday.name} - {MONTH_NAMES[Number.parseInt(month) - 1]} {day},{" "}
-            {year}: {birthday.note}
-            <div className="ab-birthday-actions">
-              <button className="ab-edit-button" onClick={() => setEditingBirthday(birthday)}>
-                Edit
-              </button>
-              <button className="ab-delete-button" onClick={() => setDeletingBirthday(birthday)}>
-                Delete
-              </button>
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mt-5">
+        {birthdays.map((birthday) => {
+          const [year, month, day] = birthday.birthdate.split("-");
+
+          return (
+            <div
+              key={birthday.id}
+              className={`${theme.allBirthdays} rounded-xl shadow-sm p-3`}
+            >
+              <div className="text-xl font-bold truncate">{birthday.name}</div>
+
+              <div className="text-lg mt-1 font-semibold">
+                {MONTH_NAMES[Number.parseInt(month) - 1]} {day}, {year}
+              </div>
+
+              {birthday.note && (
+                <div className="text-lg mt-2">{birthday.note}</div>
+              )}
+
+              {/* ACTION BUTTONS */}
+              <div className="flex gap-2 mt-3">
+                <button
+                  className={`${theme.action} px-2 py-1 rounded-lg font-semibold text-lg`}
+                  onClick={() => setEditingBirthday(birthday)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className={`${theme.action} px-2 py-1 rounded font-semibold text-lg`}
+                  onClick={() => setDeletingBirthday(birthday)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
 
       {/* Modals for editing and deleting birthdays, which are conditionally rendered based on the state of editingBirthday and deletingBirthday */}
       {editingBirthday && (
@@ -48,6 +76,7 @@ const AllBirthdaysList = ({ birthdays, loading, error, updateBirthday, deleteBir
           birthday={editingBirthday}
           onClose={() => setEditingBirthday(null)}
           onUpdate={updateBirthday}
+          theme={theme}
         />
       )}
 
@@ -56,6 +85,7 @@ const AllBirthdaysList = ({ birthdays, loading, error, updateBirthday, deleteBir
           birthday={deletingBirthday}
           onClose={() => setDeletingBirthday(null)}
           onDelete={deleteBirthday}
+          theme={theme}
         />
       )}
     </div>
@@ -69,6 +99,12 @@ AllBirthdaysList.propTypes = {
   error: PropTypes.string,
   updateBirthday: PropTypes.func.isRequired,
   deleteBirthday: PropTypes.func.isRequired,
+
+  theme: PropTypes.shape({
+    title: PropTypes.string,
+    allBirthdays: PropTypes.string,
+    action: PropTypes.string,
+  }).isRequired,
 };
 
 // Export the component as the default export of the module

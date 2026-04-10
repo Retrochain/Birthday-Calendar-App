@@ -20,6 +20,10 @@ const THEMES = {
     option: "bg-white text-gray-800",
     optionSelected: "bg-blue-100 text-gray-800 font-semibold",
     title: "text-gray-800",
+    upcoming: "bg-blue-500 text-white border border-blue-200 capitalize",
+    allBirthdays: "bg-green-500 text-white border border-green-200 capitalize",
+    action:
+      "bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow",
   },
 
   orange: {
@@ -48,6 +52,12 @@ const THEMES = {
     option: "bg-orange-800 text-white",
     optionSelected: "bg-orange-600 text-white font-bold",
     title: "text-orange-800",
+    upcoming:
+      "text-orange-950 bg-gradient-to-tl from-orange-400 to-orange-200 capitalize",
+    allBirthdays:
+      "text-orange-950 bg-gradient-to-t from-orange-600 to-orange-300 capitalize",
+    action:
+      "bg-amber-500 hover:bg-amber-400 text-white shadow-sm hover:shadow-lg",
   },
 
   teal: {
@@ -73,6 +83,12 @@ const THEMES = {
     option: "bg-teal-800 text-white",
     optionSelected: "bg-teal-600 text-white font-bold",
     title: "text-teal-800",
+    upcoming:
+      "text-teal-950 bg-gradient-to-tl from-teal-400 to-teal-200 capitalize",
+    allBirthdays:
+      "text-teal-950 bg-gradient-to-t from-teal-600 to-teal-300 capitalize",
+    action:
+      "bg-teal-900 hover:bg-teal-700 text-white shadow-sm hover:shadow-lg",
   },
 
   dark: {
@@ -98,6 +114,12 @@ const THEMES = {
     option: "bg-gray-800 text-white",
     optionSelected: "bg-gray-600 text-white font-bold",
     title: "text-white",
+    upcoming:
+      "text-gray-900 bg-gradient-to-tl from-gray-300 to-gray-50 capitalize",
+    allBirthdays:
+      "text-white bg-gradient-to-t from-gray-700 to-gray-500 capitalize",
+    action:
+      "bg-gray-200 hover:bg-gray-300 text-gray-900 shadow-sm hover:shadow-lg",
   },
 
   midnightPurple: {
@@ -127,6 +149,12 @@ const THEMES = {
     optionSelected: "bg-purple-600 text-white font-bold",
     title:
       "bg-gradient-to-t from-purple-600 via-pink-400 to-orange-600 bg-clip-text text-transparent",
+    upcoming:
+      "text-gray-100 bg-gradient-to-tl from-purple-700 to-pink-400 capitalize",
+    allBirthdays:
+      "text-white bg-gradient-to-tr from-purple-700 to-pink-500 capitalize",
+    action:
+      "bg-pink-500 hover:bg-pink-400 text-white shadow-sm hover:shadow-lg",
   },
 
   dusk: {
@@ -135,7 +163,7 @@ const THEMES = {
     grid: "bg-[#34495E] border-[#415b75]",
     cell: "border-[#415b75]",
     buttonPrimary:
-      "bg-[#FD746C] hover:bg-[#e7655d] text-white shadow-sm hover:shadow-lg",
+      "bg-[#ff7a73] hover:bg-[#e7655d] text-white shadow-sm hover:shadow-lg",
     buttonSecondary:
       "bg-[#8F5992] hover:bg-[#7e4e81] text-white shadow-sm hover:shadow-lg",
     birthdayTag: "text-[#2C3E50] bg-gradient-to-t from-[#FD746C] to-[#FFB199]",
@@ -145,20 +173,24 @@ const THEMES = {
         "hover:bg-[#b973bd] hover:ring-2 hover:ring-[#b973bd] hover:text-white",
       outside:
         "text-gray-400 border-[#465c73] hover:bg-[#d283d6] hover:text-white hover:ring-2 hover:ring-[#d283d6]",
-      selected: "bg-[#FD746C] text-white ring-2 ring-[#FD746C] shadow-md",
+      selected: "bg-[#ff7a73] text-white ring-2 ring-[#ff7a73] shadow-md",
       today: "bg-[#8F5992] text-white ring-2 ring-[#8F5992] shadow-md",
     },
     select:
       "border border-[#415b75] bg-[#34495E] text-white focus:ring-[#8F5992]",
     option: "bg-[#34495E] text-white",
     optionSelected: "bg-[#8F5992] text-white font-semibold",
-    title:
-      "bg-gradient-to-tl from-[#7fb3d5] via-[#a78bfa] to-[#ff6b6b] bg-clip-text text-transparent",
+    title: "text-gray-200",
+    upcoming:
+      "text-gray-950 bg-gradient-to-t from-[#FD746C] to-[#FFB199] capitalize",
+    allBirthdays:
+      "text-white bg-gradient-to-tr from-[#8F5992] to-[#d283d6] capitalize",
+    action:
+      "bg-[#ff7a73] hover:bg-[#e7655d] text-white shadow-sm hover:shadow-lg",
   },
 
   blueSky: {
-    container:
-      "bg-[#0960ba] text-white",
+    container: "bg-[#0960ba] text-white",
     header: "bg-[#187fed] text-white border-[#187fed]",
     grid: "bg-[#3a8fe8] border-[#5aa9f2]",
     cell: "border-[#5aa9f2]",
@@ -180,8 +212,13 @@ const THEMES = {
       "border border-[#5aa9f2] bg-[#3a8fe8] text-white focus:ring-[#49a5f0]",
     option: "bg-[#3a8fe8] text-white",
     optionSelected: "bg-[#49a5f0] text-white font-semibold",
-    title:
-      "text-[#ffefff]",
+    title: "text-[#ffefff]",
+    upcoming:
+      "text-[#1f2a36] bg-gradient-to-br from-[#FFDE42] to-[#c49f02] capitalize",
+    allBirthdays:
+      "text-[#1f2a36] bg-gradient-to-br from-[#cfefff] to-[#56ccf2] capitalize shadow-md",
+    action:
+      "bg-[#f7cb14] hover:bg-[#edc002] text-[#1f2a36] shadow-sm hover:shadow-lg",
   },
 };
 

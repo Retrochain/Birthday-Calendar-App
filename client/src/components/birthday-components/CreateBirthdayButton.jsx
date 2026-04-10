@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import NewBirthdayModal from "../crud-modals/NewBirthdayModal";
 
 // Component for the "Add Birthday" button and modal
-const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded }) => {
+const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded, theme }) => {
   // State to control the visibility of the create birthday modal
   const [showCreateModal, setShowCreateModal] = useState(false);
 
@@ -30,8 +30,8 @@ const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded }) => {
 
   // Render the "Add Birthday" button and the create birthday modal if showCreateModal is true
   return (
-    <div className="birthday-btn-container">
-      <button className="add-birthday-btn" onClick={() => setShowCreateModal(true)}>
+    <div className="container mx-auto">
+      <button className={`${theme.buttonPrimary} text-2xl font-semibold px-2 py-1 rounded-lg m-2`} onClick={() => setShowCreateModal(true)}>
         Add Birthday
       </button>
 
@@ -41,6 +41,7 @@ const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded }) => {
           selectedDate={selectedDate}
           onClose={() => setShowCreateModal(false)}
           onCreate={handleCreate}
+          theme={theme}
         />
       )}
     </div>
@@ -52,6 +53,10 @@ CreateBirthdayButton.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   addBirthday: PropTypes.func.isRequired,
   onAdded: PropTypes.func.isRequired,
+
+  theme: PropTypes.shape({
+    buttonPrimary: PropTypes.string,
+  }),
 };
 
 // Export the CreateBirthdayButton component as the default export
