@@ -1,8 +1,8 @@
 const THEMES = {
   default: {
-    container: "bg-white text-gray-900",
-    header: "bg-white text-gray-800 border-b border-gray-200",
-    grid: "bg-white border-gray-200",
+    container: "bg-gray-100 text-gray-900",
+    header: "bg-gray-200 text-gray-800 border-gray-200",
+    grid: "bg-gray-100 border-gray-200",
     cell: "border border-gray-200",
     buttonPrimary:
       "bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow",
@@ -23,7 +23,7 @@ const THEMES = {
   },
 
   orange: {
-    container: "bg-gray-200 text-gray-900",
+    container: "bg-gray-100 text-gray-900",
     header: "bg-orange-500 text-white border-orange-600",
     grid: "bg-orange-100 border-gray-300",
     cell: "border-gray-300",
@@ -51,10 +51,10 @@ const THEMES = {
   },
 
   teal: {
-    container: "bg-gray-200 text-gray-900",
+    container: "bg-gray-100 text-gray-900",
     header: "bg-teal-500 text-white border-teal-600",
-    grid: "bg-teal-100 border-teal-300",
-    cell: "border-teal-300",
+    grid: "bg-teal-100 border-gray-300",
+    cell: "border-gray-300",
     buttonPrimary:
       "bg-teal-500 hover:bg-teal-400 text-white shadow-sm hover:shadow-lg",
     buttonSecondary:
@@ -64,7 +64,7 @@ const THEMES = {
     day: {
       default: "hover:bg-teal-400 hover:ring-3 hover:ring-teal-400",
       outside:
-        "text-gray-400 border-teal-100 hover:bg-teal-500 hover:text-white",
+        "text-gray-400 border-gray-100 hover:bg-teal-500 hover:text-white",
       selected: "bg-teal-500 text-white ring-3 ring-teal-500 shadow-md",
       today: "bg-teal-700 text-white ring-3 ring-teal-700 shadow-md",
     },
@@ -127,6 +127,61 @@ const THEMES = {
     optionSelected: "bg-purple-600 text-white font-bold",
     title:
       "bg-gradient-to-t from-purple-600 via-pink-400 to-orange-600 bg-clip-text text-transparent",
+  },
+
+  dusk: {
+    container: "bg-gradient-to-b from-[#2C3E50] to-[#1F2A36] text-white",
+    header: "bg-[#3A5166] text-white border-[#3A5166]",
+    grid: "bg-[#34495E] border-[#415b75]",
+    cell: "border-[#415b75]",
+    buttonPrimary:
+      "bg-[#FD746C] hover:bg-[#e7655d] text-white shadow-sm hover:shadow-lg",
+    buttonSecondary:
+      "bg-[#8F5992] hover:bg-[#7e4e81] text-white shadow-sm hover:shadow-lg",
+    birthdayTag: "text-[#2C3E50] bg-gradient-to-t from-[#FD746C] to-[#FFB199]",
+    birthdayDot: "bg-[#FD746C]",
+    day: {
+      default:
+        "hover:bg-[#b973bd] hover:ring-2 hover:ring-[#b973bd] hover:text-white",
+      outside:
+        "text-gray-400 border-[#465c73] hover:bg-[#d283d6] hover:text-white hover:ring-2 hover:ring-[#d283d6]",
+      selected: "bg-[#FD746C] text-white ring-2 ring-[#FD746C] shadow-md",
+      today: "bg-[#8F5992] text-white ring-2 ring-[#8F5992] shadow-md",
+    },
+    select:
+      "border border-[#415b75] bg-[#34495E] text-white focus:ring-[#8F5992]",
+    option: "bg-[#34495E] text-white",
+    optionSelected: "bg-[#8F5992] text-white font-semibold",
+    title:
+      "bg-gradient-to-tl from-[#7fb3d5] via-[#a78bfa] to-[#ff6b6b] bg-clip-text text-transparent",
+  },
+
+  blueSky: {
+    container:
+      "bg-[#0960ba] text-white",
+    header: "bg-[#187fed] text-white border-[#187fed]",
+    grid: "bg-[#3a8fe8] border-[#5aa9f2]",
+    cell: "border-[#5aa9f2]",
+    buttonPrimary:
+      "bg-[#f7cb14] hover:bg-[#edc002] text-gray-800 shadow-sm hover:shadow-lg",
+    buttonSecondary:
+      "bg-[#56ccf2] hover:bg-[#3fbbe6] text-[#1f2a36] shadow-sm hover:shadow-lg",
+    birthdayTag: "text-[#1f2a36] bg-gradient-to-br from-[#FFDE42] to-[#c49f02]",
+    birthdayDot: "bg-[#ffdb33]",
+    day: {
+      default:
+        "hover:bg-[#5aa9f2] hover:ring-2 hover:ring-[#5aa9f2] hover:text-white",
+      outside:
+        "text-blue-200 border-[#5aa9f2] hover:bg-[#79bbf7] hover:text-white hover:ring-2 hover:ring-[#79bbf7]",
+      selected: "bg-[#f7cb14] text-gray-800 ring-2 ring-[#f7cb14] shadow-md",
+      today: "bg-[#56ccf2] text-gray-800 ring-2 ring-[#56ccf2] shadow-md",
+    },
+    select:
+      "border border-[#5aa9f2] bg-[#3a8fe8] text-white focus:ring-[#49a5f0]",
+    option: "bg-[#3a8fe8] text-white",
+    optionSelected: "bg-[#49a5f0] text-white font-semibold",
+    title:
+      "text-[#ffefff]",
   },
 };
 
