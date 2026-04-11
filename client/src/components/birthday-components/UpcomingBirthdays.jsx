@@ -35,7 +35,7 @@ const UpcomingBirthdays = ({ birthdays, loading, error, theme }) => {
               </div>
 
               {birthday.note && (
-                <div className="text-lg mt-2">{birthday.note}</div>
+                <div className="text-lg mt-2 line-clamp-3">{birthday.note}</div>
               )}
             </div>
           );

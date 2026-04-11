@@ -196,7 +196,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays, theme }) => {
               {item.monthOffset === 0 && (
                 <>
                   {/* For mobile screen we will show dots (upto 3) */}
-                  <div className="flex sm:hidden gap-1 mt-5">
+                  <div className="flex lg:hidden gap-1 mt-5">
                     {birthdaysForDay.slice(0, 3).map((j, i) => (
                       <div
                         key={j + i}
@@ -206,7 +206,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays, theme }) => {
                   </div>
 
                   {/* For desktop screens we will show names (upto 2) */}
-                  <div className="hidden sm:flex flex-col gap-0.5 mt-3 text-md">
+                  <div className="hidden lg:flex flex-col gap-0.5 mt-3 text-md">
                     {birthdaysForDay.slice(0, 2).map((ub) => (
                       <span
                         key={`${ub.name}-${ub.birthdate}`}

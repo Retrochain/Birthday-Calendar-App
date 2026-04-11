@@ -1,10 +1,12 @@
 // This file contains the controller functions for managing birthday data.
 // Each function corresponds to a specific CRUD operation (Create, Read, Update, Delete) and interacts with the database to perform the necessary actions.
 // The functions are designed to handle HTTP requests and send appropriate responses back to the client.
-import supabase from "../db/database.js";
+import { getAuthenticatedClient } from "../db/database.js";
 
 // GET /birthdays - Retrieve all birthdays from the database, ordered by birthdate
 const getAllBirthdays = async (req, res) => {
+  const supabase = getAuthenticatedClient(req.token); // Token from auth middleware
+
   // Fetch all birthdays from database, ordered by birthdate
   try {
     // Use Supabase client to query the "birthdays" table, selecting all columns and ordering by birthdate in ascending order
@@ -34,6 +36,8 @@ const getAllBirthdays = async (req, res) => {
 
 // POST /birthdays - Create a new birthday entry in the database
 const createBirthday = async (req, res) => {
+  const supabase = getAuthenticatedClient(req.token); // Token from auth middleware
+
   // Validate and save birthday to database
   try {
     // Extract the name, birthdate, and note from the request body
@@ -96,6 +100,8 @@ const createBirthday = async (req, res) => {
 
 // PUT /birthdays/:id - Update an existing birthday entry in the database using the ID from the request parameters.
 const updateBirthday = async (req, res) => {
+  const supabase = getAuthenticatedClient(req.token); // Token from auth middleware
+
   // Update birthday in database
   try {
     // Extract the ID parameter from the request URL and the name, birthdate, and note from the request body
@@ -137,6 +143,8 @@ const updateBirthday = async (req, res) => {
 
 // DELETE /birthdays/:id - Delete a birthday entry from the database using the ID from the request parameters.
 const deleteBirthday = async (req, res) => {
+  const supabase = getAuthenticatedClient(req.token); // Token from auth middleware
+  
   // Delete birthday from database
   try {
     // Extract the ID parameter from the request URL
@@ -168,9 +176,4 @@ const deleteBirthday = async (req, res) => {
 };
 
 // Export the controller functions for use in the routes
-export {
-  getAllBirthdays,
-  createBirthday,
-  updateBirthday,
-  deleteBirthday,
-};
+export { getAllBirthdays, createBirthday, updateBirthday, deleteBirthday };

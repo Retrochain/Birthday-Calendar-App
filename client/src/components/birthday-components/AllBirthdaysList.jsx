@@ -46,11 +46,11 @@ const AllBirthdaysList = ({
               </div>
 
               {birthday.note && (
-                <div className="text-lg mt-2">{birthday.note}</div>
+                <div className="text-lg mt-2 line-clamp-3">{birthday.note}</div>
               )}
 
               {/* ACTION BUTTONS */}
-              <div className="flex gap-2 mt-3">
+              <div className="flex flex-col lg:flex-row gap-2 mt-3">
                 <button
                   className={`${theme.action} px-2 py-1 rounded-lg font-semibold text-lg`}
                   onClick={() => setEditingBirthday(birthday)}

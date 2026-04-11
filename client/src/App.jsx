@@ -11,9 +11,11 @@ import CreateBirthdayButton from "./components/birthday-components/CreateBirthda
 import UpcomingBirthdays from "./components/birthday-components/UpcomingBirthdays";
 import AllBirthdaysList from "./components/birthday-components/AllBirthdaysList";
 import AuthModal from "./components/auth/AuthModal";
+import Header from "./components/auth/Header";
 import ThemeSelector from "./components/themes/ThemeSelector";
 
 import THEMES from "./utils/Themes.js";
+import handleSignOut from "./utils/SignOut.js";
 
 function App() {
   // First get the user
@@ -38,24 +40,18 @@ function App() {
     updateBirthday,
     deleteBirthday,
     upcomingBirthdays,
-  } = useBirthdays();
+  } = useBirthdays(user?.id);
 
   // If user is not logged in then only show a login modal
-  if (!user) return <AuthModal />;
+  if (!user) return <AuthModal theme={currentTheme} />;
 
   // Otherwise show all the componenets
   return (
     <div className="flex flex-col container mx-auto px-4">
-      <h1
-        className={`${currentTheme.title} flex flex-row text-left mt-8 uppercase text-7xl font-bebas`}
-      >
-        Birthday
-        <br />
-        Calendar
-      </h1>
+      <Header theme={currentTheme} handleSignOut={handleSignOut} />
 
       <ThemeSelector
-        theme={theme}
+        theme={currentTheme}
         setTheme={setTheme}
         themeButtonClass={themeButtonClass}
       />

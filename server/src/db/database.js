@@ -8,5 +8,11 @@ const supabaseKey = process.env.SUPABASE_API_KEY;
 // Create a Supabase client using the URL and key from environment variables
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Per-request client that includes the user's JWT so RLS policies apply
+export const getAuthenticatedClient = (token) =>
+  createClient(supabaseUrl, supabaseKey, {
+    global: { headers: { Authorization: `Bearer ${token}` } },
+  });
+
 // Export the Supabase client for use in other parts of the application
 export default supabase;

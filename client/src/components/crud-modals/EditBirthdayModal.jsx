@@ -28,6 +28,11 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
     }
   };
 
+  const formatDateForInput = (dateString) => {
+    const date = new Date(dateString);
+    return Number.isNaN(date) ? "" : date.toLocaleDateString();
+  };
+
   // Render the modal with form fields and buttons
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
@@ -40,7 +45,11 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
           Date: {new Date(birthday.birthdate).toDateString()}
         </p>
 
+        <label htmlFor="name" className="block mb-1 text-xl font-semibold">
+          Name
+        </label>
         <input
+          id="name"
           type="text"
           className={`${theme.grid} w-full p-2 mb-3 rounded text-xl capitalize`}
           value={name}
@@ -48,7 +57,11 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
           placeholder="Name"
         />
 
+        <label htmlFor="note" className="block mb-1 text-xl font-semibold">
+          Note
+        </label>
         <input
+          id="note"
           type="text"
           className={`${theme.grid} w-full p-2 mb-3 rounded text-xl`}
           value={note}
@@ -56,10 +69,14 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
           placeholder="Note"
         />
 
+        <label htmlFor="birthdate" className="block mb-1 text-xl font-semibold">
+          Birthdate
+        </label>
         <input
-          type="text"
+          id="birthdate"
+          type="date"
           className={`${theme.grid} w-full p-2 mb-3 rounded text-xl`}
-          value={birthdate}
+          value={formatDateForInput(birthdate)}
           onChange={(e) => setBirthdate(e.target.value)}
         />
 

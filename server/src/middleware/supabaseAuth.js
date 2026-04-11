@@ -29,6 +29,7 @@ const authMiddleware = async (req, res, next) => {
   }
   // If the token is valid and the user is authenticated, attach the user information to the request object for use in subsequent middleware or route handlers
   req.user = user;
+  req.token = token;
   next();
 };
 

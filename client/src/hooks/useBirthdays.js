@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { apiRequest } from "../utils/RequestHelper";
 
 // Custom hook to manage birthdays data and API interactions
-export const useBirthdays = () => {
+export const useBirthdays = (userId) => {
   // State variables to hold birthdays, loading status, and any errors
   const [birthdays, setBirthdays] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -115,8 +115,8 @@ export const useBirthdays = () => {
 
   // useEffect to fetch birthdays when the component using this hook mounts
   useEffect(() => {
-    fetchBirthdays();
-  }, [fetchBirthdays]);
+    if (userId) fetchBirthdays();
+  }, [fetchBirthdays, userId]);
 
   // Return the state variables and functions for managing birthdays, allowing components to easily access and manipulate birthday data
   return {

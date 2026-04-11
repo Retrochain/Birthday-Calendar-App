@@ -3,19 +3,24 @@ import PropTypes from "prop-types";
 import NewBirthdayModal from "../crud-modals/NewBirthdayModal";
 
 // Component for the "Add Birthday" button and modal
-const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded, theme }) => {
+const CreateBirthdayButton = ({
+  selectedDate,
+  addBirthday,
+  onAdded,
+  theme,
+}) => {
   // State to control the visibility of the create birthday modal
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   // Handler for creating a new birthday
-  const handleCreate = async (name, note) => {
+  const handleCreate = async (name, note, birthdate) => {
     // Call the addBirthday function passed as a prop to create a new birthday
     try {
-      // Format the selected date to YYYY-MM-DD format
+      // Send the new birthday information
       await addBirthday({
         name,
         note,
-        birthdate: selectedDate.toISOString().split("T")[0],
+        birthdate,
       });
 
       // Call the onAdded callback to refresh the birthday list and close the modal
@@ -31,7 +36,10 @@ const CreateBirthdayButton = ({ selectedDate, addBirthday, onAdded, theme }) => 
   // Render the "Add Birthday" button and the create birthday modal if showCreateModal is true
   return (
     <div className="container mx-auto">
-      <button className={`${theme.buttonPrimary} text-2xl font-semibold px-2 py-1 rounded-lg m-2`} onClick={() => setShowCreateModal(true)}>
+      <button
+        className={`${theme.buttonPrimary} text-2xl font-semibold px-2 py-1 rounded-lg m-2`}
+        onClick={() => setShowCreateModal(true)}
+      >
         Add Birthday
       </button>
 

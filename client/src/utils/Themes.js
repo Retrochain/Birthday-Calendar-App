@@ -117,7 +117,7 @@ const THEMES = {
     upcoming:
       "text-gray-900 bg-gradient-to-tl from-gray-300 to-gray-50 capitalize",
     allBirthdays:
-      "text-white bg-gradient-to-t from-gray-700 to-gray-500 capitalize",
+      "text-white bg-gradient-to-bl from-gray-500 via-gray-600 to-gray-800 capitalize",
     action:
       "bg-gray-200 hover:bg-gray-300 text-gray-900 shadow-sm hover:shadow-lg",
   },
