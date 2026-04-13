@@ -8,8 +8,20 @@ import birthdaysRouter from "./routes/birthdays.js";
 // Create an instance of the Express application
 const app = express();
 
+const allowedOrigins = ["http://localhost:5173", process.env.CLIENT_URL];
+
 // Use CORS middleware to allow cross-origin requests and JSON middleware to parse incoming JSON request bodies
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  }),
+);
 app.use(express.json());
 
 // Use the birthdays router for any routes that start with /birthdays
