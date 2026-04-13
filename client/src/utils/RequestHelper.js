@@ -1,7 +1,9 @@
-// This module provides a helper function to make authenticated API requests using Supabase for authentication and Axios for HTTP requests. 
+// This module provides a helper function to make authenticated API requests using Supabase for authentication and Axios for HTTP requests.
 // The withAuth function retrieves the current session and access token from Supabase, while the apiRequest function uses this token to make authenticated API calls.
 import supabase from "../apis/supabaseClient.js";
 import axios from "axios";
+
+const BASE_URL = import.meta.env.VITE_API_URL || "";
 
 // Helper function to wrap API calls with authentication
 const withAuth = async () => {
@@ -30,7 +32,12 @@ export const apiRequest = async ({ method, url, data }) => {
   const token = await withAuth();
 
   // Make the API request using Axios, including the Authorization header with the Bearer token
-  return axios({ method, url, data, headers: { Authorization: `Bearer ${token}` } });
+  return axios({
+    method,
+    url: `${BASE_URL}${url}`,
+    data,
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
 // Export the apiRequest function for use in components and hooks

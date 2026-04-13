@@ -3,17 +3,17 @@ import express from "express";
 import cors from "cors";
 
 // Import the birthdays router, which contains routes for managing birthday data
-import birthdaysRouter from './routes/birthdays.js';
+import birthdaysRouter from "./routes/birthdays.js";
 
 // Create an instance of the Express application
 const app = express();
 
 // Use CORS middleware to allow cross-origin requests and JSON middleware to parse incoming JSON request bodies
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
 app.use(express.json());
 
 // Use the birthdays router for any routes that start with /birthdays
-app.use('/api/birthdays', birthdaysRouter);
+app.use("/api/birthdays", birthdaysRouter);
 
 // Define a simple route for the root URL that responds with "Hello, World!" when accessed
 app.get("/", (req, res) => {
@@ -21,4 +21,4 @@ app.get("/", (req, res) => {
 });
 
 // Export the Express app for use in other parts of the application, such as the server entry point
-export default app
+export default app;
