@@ -24,7 +24,29 @@ const AllBirthdaysList = ({
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message for no birthdays found */}
       {error && <div className="mt-3 text-3xl">Error: {error}</div>}
-      {loading && <div className="mt-3 text-3xl">Loading...</div>}
+      {loading && (
+        <div
+          className={`${theme.allBirthdays} shadow rounded-md p-4 max-w-sm w-full`}
+        >
+          <div className="animate-pulse flex space-x-4">
+            <div className="flex-1 space-y-4 py-1">
+              <div className={`${theme.select} h-4 rounded w-3/4`}></div>
+              <div className="space-y-2">
+                <div className={`h-4 ${theme.select} rounded`}></div>
+                <div className={`h-4 ${theme.select} rounded w-5/6`}></div>
+                <div className="flex flex-col lg:flex-row gap-2 mt-3">
+                  <div
+                    className={`${theme.action} px-2 py-1 rounded-lg font-semibold text-lg w-12 h-9`}
+                  ></div>
+                  <div
+                    className={`${theme.action} px-2 py-1 rounded-lg font-semibold text-lg w-16 h-9`}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {!loading && !error && birthdays.length === 0 && (
         <div className="mt-3 text-2xl">No birthdays found.</div>
       )}
@@ -45,8 +67,16 @@ const AllBirthdaysList = ({
                 {MONTH_NAMES[Number.parseInt(month) - 1]} {day}, {year}
               </div>
 
-              {birthday.note && (
-                <div className="text-lg mt-2 line-clamp-3">{birthday.note}</div>
+              {birthday.note === "" && (
+                <div className={`${theme.noNote} text-lg mt-2 line-clamp-3`}>
+                  No note
+                </div>
+              )}
+
+              {birthday.note !== "" && (
+                <div className="text-lg mt-2 line-clamp-3 font-semibold">
+                  {birthday.note}
+                </div>
               )}
 
               {/* ACTION BUTTONS */}
@@ -104,6 +134,8 @@ AllBirthdaysList.propTypes = {
     title: PropTypes.string,
     allBirthdays: PropTypes.string,
     action: PropTypes.string,
+    select: PropTypes.string.isRequired,
+    noNote: PropTypes.string.isRequired,
   }).isRequired,
 };
 

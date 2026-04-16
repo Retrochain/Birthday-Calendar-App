@@ -1,6 +1,7 @@
 import { useState } from "react";
 import supabase from "../../apis/supabaseClient.js";
 import PropTypes from "prop-types";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 // Simple modal component for login/signup
 function AuthModal({ theme }) {
@@ -9,6 +10,7 @@ function AuthModal({ theme }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Handle form submission for both login and signup
   const handleSubmit = async (e) => {
@@ -63,29 +65,43 @@ function AuthModal({ theme }) {
           />
 
           {/* Password */}
-          <label
-            htmlFor="password"
-            className="block mb-1 text-lg font-semibold"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            className={`${theme.grid} w-full p-2 mb-3 rounded text-xl`}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-          />
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-1 text-lg font-semibold"
+            >
+              Password
+            </label>
 
-          {error && <p className="mb-3 text-red-500 text-lg">{error}</p>}
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                className={`${theme.grid} w-full p-2 mb-3 rounded text-xl`}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className={`${theme.eye} absolute inset-y-0 bottom-3 right-1 z-10 flex items-center justify-center px-3 text-2xl opacity-70 hover:opacity-100 transition`}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
+          </div>
+
+          {error && <p className="mb-3 text-red-500 text-lg capitalize">{error}</p>}
+          <p className={`${theme.footnote} mb-3 text-lg font-semibold`}>Password has to be 8 or more characters</p>
 
           {/* Buttons */}
           <div className="flex justify-end gap-2 mt-2">
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className={`${theme.buttonSecondary} px-3 py-1 rounded text-xl font-semibold`}
+              className={`${theme.buttonSecondary} px-3 py-1 rounded text-xl font-semibold required`}
             >
               {isLogin ? "Sign Up" : "Login"}
             </button>
@@ -113,5 +129,7 @@ AuthModal.propTypes = {
     grid: PropTypes.string,
     buttonPrimary: PropTypes.string,
     buttonSecondary: PropTypes.string,
+    footnote: PropTypes.string,
+    eye: PropTypes.string, 
   }),
 };

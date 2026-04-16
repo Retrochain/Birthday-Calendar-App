@@ -24,6 +24,9 @@ const THEMES = {
     allBirthdays: "bg-green-500 text-white border border-green-200 capitalize",
     action:
       "bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow",
+    noNote: "text-gray-300",
+    eye: "text-gray-800",
+    footnote: "text-gray-700",
   },
 
   orange: {
@@ -58,6 +61,9 @@ const THEMES = {
       "text-orange-950 bg-gradient-to-t from-orange-600 to-orange-300 capitalize",
     action:
       "bg-amber-500 hover:bg-amber-400 text-white shadow-sm hover:shadow-lg",
+    noNote: "text-gray-800",
+    eye: "text-gray-800",
+    footnote: "text-gray-700",
   },
 
   teal: {
@@ -89,6 +95,9 @@ const THEMES = {
       "text-teal-950 bg-gradient-to-t from-teal-600 to-teal-300 capitalize",
     action:
       "bg-teal-900 hover:bg-teal-700 text-white shadow-sm hover:shadow-lg",
+    noNote: "text-gray-800",
+    eye: "text-gray-800",
+    footnote: "text-gray-700",
   },
 
   dark: {
@@ -120,6 +129,9 @@ const THEMES = {
       "text-white bg-gradient-to-bl from-gray-500 via-gray-600 to-gray-800 capitalize",
     action:
       "bg-gray-200 hover:bg-gray-300 text-gray-900 shadow-sm hover:shadow-lg",
+    noNote: "text-gray-300",
+    eye: "text-gray-400",
+    footnote: "text-gray-300",
   },
 
   midnightPurple: {
@@ -155,6 +167,9 @@ const THEMES = {
       "text-white bg-gradient-to-tr from-purple-700 to-pink-500 capitalize",
     action:
       "bg-pink-500 hover:bg-pink-400 text-white shadow-sm hover:shadow-lg",
+    noNote: "text-gray-300",
+    eye: "text-gray-500",
+    footnote: "text-gray-300",
   },
 
   dusk: {
@@ -187,6 +202,9 @@ const THEMES = {
       "text-white bg-gradient-to-tr from-[#8F5992] to-[#d283d6] capitalize",
     action:
       "bg-[#ff7a73] hover:bg-[#e7655d] text-white shadow-sm hover:shadow-lg",
+    noNote: "text-gray-300",
+    eye: "text-gray-400",
+    footnote: "text-gray-300",
   },
 
   blueSky: {
@@ -219,6 +237,9 @@ const THEMES = {
       "text-[#1f2a36] bg-gradient-to-br from-[#cfefff] to-[#56ccf2] capitalize shadow-md",
     action:
       "bg-[#f7cb14] hover:bg-[#edc002] text-[#1f2a36] shadow-sm hover:shadow-lg",
+    noNote: "text-gray-700",
+    eye: "text-gray-700",
+    footnote: "text-gray-300",
   },
 };
 

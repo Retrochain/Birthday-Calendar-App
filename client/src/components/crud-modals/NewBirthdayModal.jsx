@@ -7,6 +7,7 @@ const NewBirthdayModal = ({ selectedDate, onClose, onCreate, theme }) => {
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
   const [error, setError] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   // We first break down the selected date to ensure that the date displayed is today's date
   const formatLocalDate = (date) => {
@@ -29,20 +30,25 @@ const NewBirthdayModal = ({ selectedDate, onClose, onCreate, theme }) => {
   // Handle the save action when the user clicks the "Save" button
   const handleSave = async () => {
     // Basic validation to ensure the name field is not empty
+
+    // Clear any previous errors
+    setError(null);
+
+    // Validate that the name is not empty
+    if (!name.trim()) {
+      setError("Name is required");
+      return;
+    }
+
     try {
-      // Clear any previous errors
-      setError(null);
+      setSaving(true);
 
-      // Validate that the name is not empty
-      if (!name.trim()) {
-        setError("Name is required");
-        return;
-      }
-
-      // Call the onCreate function passed as a prop to create the new birthday entry
+      // Call the callback function to add the birthday
       await onCreate(name, note, birthdate);
     } catch (err) {
       setError(err.message || "Failed to add birthday");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -91,7 +97,7 @@ const NewBirthdayModal = ({ selectedDate, onClose, onCreate, theme }) => {
         </label>
         <textarea
           id="note"
-          rows="4"
+          rows="2"
           className={`${theme.grid} w-full p-2 mb-3 rounded text-xl`}
           value={note}
           onChange={(e) => setNote(e.target.value)}
@@ -103,14 +109,16 @@ const NewBirthdayModal = ({ selectedDate, onClose, onCreate, theme }) => {
         <div className="flex justify-end gap-2">
           <button
             onClick={onClose}
-            className={`${theme.buttonSecondary} rounded px-3 py-1 font-semibold text-xl`}
+            className={`${theme.buttonSecondary} rounded px-3 py-1 font-semibold text-xl ${saving ? "disabled:opacity-50 cursor-not-allowed" : ""}`}
+            disabled={saving}
           >
             Cancel
           </button>
 
           <button
             onClick={handleSave}
-            className={`${theme.buttonPrimary} rounded px-3 py-1 font-semibold text-xl`}
+            className={`${theme.buttonPrimary} rounded px-3 py-1 font-semibold text-xl ${saving ? "disabled:opacity-50 cursor-not-allowed" : ""}`}
+            disabled={saving}
           >
             Save
           </button>

@@ -5,9 +5,14 @@ import PropTypes from "prop-types";
 const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
   // Local state for form fields and error handling
   const [name, setName] = useState(birthday.name);
-  const [birthdate, setBirthdate] = useState(birthday.birthdate);
+  const [birthdate, setBirthdate] = useState(
+    birthday.birthdate
+      ? new Date(birthday.birthdate).toISOString().split("T")[0]
+      : "",
+  );
   const [note, setNote] = useState(birthday.note);
   const [error, setError] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   // Handle saving the updated birthday entry
   const handleSave = async () => {
@@ -19,18 +24,16 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
 
     // Attempt to update the birthday entry via the provided onUpdate function
     try {
+      setSaving(true);
+
       await onUpdate(birthday.id, { name, birthdate, note });
 
       // Close the modal on successful update
       onClose();
     } catch (err) {
       setError(err.message || "Failed to update birthday");
+      setSaving(false);
     }
-  };
-
-  const formatDateForInput = (dateString) => {
-    const date = new Date(dateString);
-    return Number.isNaN(date) ? "" : date.toLocaleDateString();
   };
 
   // Render the modal with form fields and buttons
@@ -42,7 +45,7 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
         <h2 className="text-xl font-semibold mb-2">Edit Birthday</h2>
 
         <p className="mb-4 text-xl">
-          Date: {new Date(birthday.birthdate).toDateString()}
+          Date: {new Date(birthday.birthdate + "T00:00:00").toDateString()}
         </p>
 
         <label htmlFor="name" className="block mb-1 text-xl font-semibold">
@@ -76,7 +79,7 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
           id="birthdate"
           type="date"
           className={`${theme.grid} w-full p-2 mb-3 rounded text-xl`}
-          value={formatDateForInput(birthdate)}
+          value={birthdate}
           onChange={(e) => setBirthdate(e.target.value)}
         />
 
@@ -84,17 +87,19 @@ const EditBirthdayModal = ({ birthday, onClose, onUpdate, theme }) => {
 
         <div className="flex justify-end gap-2">
           <button
-            className={`${theme.buttonPrimary} px-3 py-1 rounded font-semibold text-xl`}
+            className={`${theme.buttonPrimary} px-3 py-1 rounded font-semibold text-xl ${saving ? "disabled:opacity-50 cursor-not-allowed" : ""}`}
             onClick={onClose}
+            disabled={saving}
           >
             Cancel
           </button>
 
           <button
-            className={`${theme.buttonSecondary} px-3 py-1 rounded font-semibold text-xl`}
+            className={`${theme.buttonSecondary} px-3 py-1 rounded font-semibold text-xl ${saving ? "disabled:opacity-50 cursor-not-allowed" : ""}`}
             onClick={handleSave}
+            disabled={saving}
           >
-            Save
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>

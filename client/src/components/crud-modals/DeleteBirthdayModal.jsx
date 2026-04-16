@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 
 // Modal for confirming deletion of a birthday entry
 const DeleteBirthdayModal = ({ birthday, onClose, onDelete, theme }) => {
-  // Local state for handling errors and loading state during deletion
+  // Local state for handling errors and delete state during deletion
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Function to handle the deletion process
   const handleDelete = async () => {
     // Reset error state and set loading to true
     setError(null);
-    setLoading(true);
+    setDeleting(true);
 
     // Attempt to delete the birthday entry using the provided onDelete function
     try {
@@ -22,7 +22,7 @@ const DeleteBirthdayModal = ({ birthday, onClose, onDelete, theme }) => {
       onClose();
     } catch (err) {
       setError(err.message || "Failed to delete birthday");
-      setLoading(false);
+      setDeleting(false);
     }
   };
 
@@ -44,19 +44,19 @@ const DeleteBirthdayModal = ({ birthday, onClose, onDelete, theme }) => {
 
         <div className="flex justify-end gap-2">
           <button
-            className={`${theme.buttonPrimary} px-3 py-1 rounded font-semibold text-xl`}
+            className={`${theme.buttonPrimary} px-3 py-1 rounded font-semibold text-xl ${deleting ? "disabled:opacity-50 cursor-not-allowed" : ""}`}
             onClick={onClose}
-            disabled={loading}
+            disabled={deleting}
           >
             Cancel
           </button>
 
           <button
-            className={`${theme.buttonSecondary} px-3 py-1 rounded font-semibold text-xl`}
+            className={`${theme.buttonSecondary} px-3 py-1 rounded font-semibold text-xl ${deleting ? "disabled:opacity-50 cursor-not-allowed" : ""}`}
             onClick={handleDelete}
-            disabled={loading}
+            disabled={deleting}
           >
-            {loading ? "Deleting..." : "Delete"}
+            {deleting ? "Deleting..." : "Delete"}
           </button>
         </div>
       </div>

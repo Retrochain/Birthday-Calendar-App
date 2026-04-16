@@ -14,7 +14,22 @@ const UpcomingBirthdays = ({ birthdays, loading, error, theme }) => {
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message if there are no birthdays. */}
       {error && <div className="mt-3 text-3xl">Error: {error}</div>}
-      {loading && <div className="mt-3 text-3xl">Loading...</div>}
+      {loading && (
+        <div
+          className={`${theme.upcoming} shadow rounded-md p-4 max-w-sm w-full mb-4`}
+        >
+          <div className="animate-pulse flex space-x-4">
+            <div className="flex-1 space-y-4 py-1">
+              <div className={`${theme.select} h-4 rounded w-3/4`}></div>
+              <div className="space-y-2">
+                <div className={`h-4 ${theme.select} rounded`}></div>
+                <div className={`h-4 ${theme.select} rounded w-5/6`}></div>
+                <div className="flex flex-col lg:flex-row gap-2 mt-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {!loading && !error && (!birthdays || birthdays.length === 0) && (
         <div className="mt-3 text-2xl">No birthdays this month.</div>
       )}
@@ -53,6 +68,7 @@ UpcomingBirthdays.propTypes = {
   theme: PropTypes.shape({
     title: PropTypes.string,
     upcoming: PropTypes.string,
+    select: PropTypes.string.isRequired,
   }).isRequired,
 };
 
