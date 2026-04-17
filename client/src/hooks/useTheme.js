@@ -42,7 +42,7 @@ export function useTheme() {
     `w-6 h-6 rounded-full transition-all duration-200 ${colorClass} ${
       isActiveTheme(t)
         ? "ring-2 ring-offset-1 ring-gray scale-110 shadow-lg"
-        : "opacity-60 hover:opacity-100"
+        : "opacity-75 hover:opacity-100"
     }`;
 
   return { theme, setTheme, themeButtonClass };

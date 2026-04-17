@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const ThemeButton = ({ onClick, className, label }) => {
   return (
     <div className="relative inline-block group">
-      <button onClick={onClick} className={className} />
+      <button onClick={onClick} className={`${className} hover:scale-110 transition duration-300`} />
 
       <div
         className="absolute left-1/2 -translate-x-1/2 -top-9
@@ -24,7 +24,7 @@ const ThemeSelector = ({ setTheme, themeButtonClass }) => {
     <div className="flex gap-2 mb-4">
       <ThemeButton
         onClick={() => setTheme("default")}
-        className={themeButtonClass("default", "bg-blue-800")}
+        className={themeButtonClass("default", "bg-linear-to-t from-blue-500 to-green-300")}
         label="Default Theme"
       />
 
@@ -48,19 +48,19 @@ const ThemeSelector = ({ setTheme, themeButtonClass }) => {
 
       <ThemeButton
         onClick={() => setTheme("midnightPurple")}
-        className={themeButtonClass("midnightPurple", "bg-purple-800")}
+        className={themeButtonClass("midnightPurple", "bg-linear-to-t from-purple-700 to-orange-600")}
         label="Midnight Purple Theme"
       />
 
       <ThemeButton
         onClick={() => setTheme("dusk")}
-        className={themeButtonClass("dusk", "bg-pink-800")}
+        className={themeButtonClass("dusk", "bg-linear-to-b from-[#2C3E50] to-[#FD746C]")}
         label="Dusk Theme"
       />
 
       <ThemeButton
         onClick={() => setTheme("blueSky")}
-        className={themeButtonClass("blueSky", "bg-yellow-600")}
+        className={themeButtonClass("blueSky", "bg-linear-to-t from-blue-600  to-yellow-400")}
         label="Blue Sky Theme"
       />
     </div>

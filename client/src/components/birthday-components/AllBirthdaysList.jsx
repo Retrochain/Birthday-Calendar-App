@@ -20,7 +20,7 @@ const AllBirthdaysList = ({
   // Render the list of birthdays with appropriate messages for loading, errors, and empty state
   return (
     <div className="container mx-auto items-center justify-center pl-2">
-      <h1 className={`${theme.title} font-bebas text-5xl`}>All Birthdays</h1>
+      <h1 className={`${theme.title} font-bebas text-5xl mt-3`}>Your Added Birthdays</h1>
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message for no birthdays found */}
       {error && <div className="mt-3 text-3xl">Error: {error}</div>}
@@ -52,7 +52,7 @@ const AllBirthdaysList = ({
       )}
 
       {/* Map through the list of birthdays and display each one with options to edit or delete */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mt-5">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-5 mt-5">
         {birthdays.map((birthday) => {
           const [year, month, day] = birthday.birthdate.split("-");
 

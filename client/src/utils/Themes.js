@@ -5,8 +5,9 @@ const THEMES = {
     grid: "bg-gray-100 border-gray-200",
     cell: "border border-gray-200",
     buttonPrimary:
-      "bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow",
-    buttonSecondary: "bg-green-600 hover:bg-green-700 text-white shadow-sm",
+      "bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow hover:shadow-lg",
+    buttonSecondary:
+      "bg-green-600 hover:bg-green-700 text-white shadow-sm hover:shadow-lg",
     birthdayTag: "bg-blue-500 text-white border border-blue-200",
     birthdayDot: "bg-blue-400",
     day: {
@@ -20,11 +21,12 @@ const THEMES = {
     option: "bg-white text-gray-800",
     optionSelected: "bg-blue-100 text-gray-800 font-semibold",
     title: "text-gray-800",
-    upcoming: "bg-blue-500 text-white border border-blue-200 capitalize",
-    allBirthdays: "bg-green-500 text-white border border-green-200 capitalize",
-    action:
-      "bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow",
-    noNote: "text-gray-300",
+    upcoming:
+      "bg-green-300/50 text-gray-800 border border-green-700/50 border-2 capitalize hover:shadow-lg hover:ring-2 hover:ring-green-400 transition duration-300",
+    allBirthdays:
+      "bg-blue-200/50 bg-opacity-50 border border-blue-400/50 border-2 text-gray-600 capitalize shadow-md hover:shadow-lg hover:scale-105 hover:ring-2 hover:ring-blue-400 hover:bg-blue-200/90 hover:text-gray-700 transition duration-300",
+    action: "bg-green-500 hover:bg-green-600 text-white shadow-sm hover:shadow",
+    noNote: "text-gray-500",
     eye: "text-gray-800",
     footnote: "text-gray-700",
   },
@@ -56,9 +58,9 @@ const THEMES = {
     optionSelected: "bg-orange-600 text-white font-bold",
     title: "text-orange-800",
     upcoming:
-      "text-orange-950 bg-gradient-to-tl from-orange-400 to-orange-200 capitalize",
+      "text-orange-950 bg-gradient-to-tl from-orange-400 to-orange-200 capitalize shadow-md hover:shadow-lg hover:ring-3 hover:ring-orange-500 transition duration-300",
     allBirthdays:
-      "text-orange-950 bg-gradient-to-t from-orange-600 to-orange-300 capitalize",
+      "text-orange-950 bg-gradient-to-t from-orange-600/90 to-orange-300/90 capitalize shadow-md hover:shadow-lg hover:scale-105 transition duration-300",
     action:
       "bg-amber-500 hover:bg-amber-400 text-white shadow-sm hover:shadow-lg",
     noNote: "text-gray-800",
@@ -90,9 +92,9 @@ const THEMES = {
     optionSelected: "bg-teal-600 text-white font-bold",
     title: "text-teal-800",
     upcoming:
-      "text-teal-950 bg-gradient-to-tl from-teal-400 to-teal-200 capitalize",
+      "text-teal-950 bg-gradient-to-tl from-teal-400 to-teal-200 capitalize shadow-md hover:shadow-lg hover:ring-3 hover:ring-teal-500 transition duration-300",
     allBirthdays:
-      "text-teal-950 bg-gradient-to-t from-teal-600 to-teal-300 capitalize",
+      "text-teal-950 bg-gradient-to-t from-teal-600 to-teal-300 capitalize shadow-md hover:shadow-lg hover:scale-105 transition duration-300",
     action:
       "bg-teal-900 hover:bg-teal-700 text-white shadow-sm hover:shadow-lg",
     noNote: "text-gray-800",
@@ -124,9 +126,9 @@ const THEMES = {
     optionSelected: "bg-gray-600 text-white font-bold",
     title: "text-white",
     upcoming:
-      "text-gray-900 bg-gradient-to-tl from-gray-300 to-gray-50 capitalize",
+      "text-gray-900 bg-gradient-to-tl from-gray-400 to-gray-50 capitalize shadow-md hover:shadow-lg hover:ring-3 hover:ring-gray-50 transition duration-300",
     allBirthdays:
-      "text-white bg-gradient-to-bl from-gray-500 via-gray-600 to-gray-800 capitalize",
+      "text-white bg-gradient-to-bl from-gray-500 via-gray-600 to-gray-800 capitalize shadow-md hover:shadow-lg hover:scale-105 transition duration-300",
     action:
       "bg-gray-200 hover:bg-gray-300 text-gray-900 shadow-sm hover:shadow-lg",
     noNote: "text-gray-300",
@@ -162,9 +164,9 @@ const THEMES = {
     title:
       "bg-gradient-to-t from-purple-600 via-pink-400 to-orange-600 bg-clip-text text-transparent",
     upcoming:
-      "text-gray-100 bg-gradient-to-tl from-purple-700 to-pink-400 capitalize",
+      "text-gray-100 bg-gradient-to-tl from-purple-700 to-pink-400 capitalize shadow-md hover:shadow-lg hover:ring-3 hover:ring-pink-500 transition duration-300",
     allBirthdays:
-      "text-white bg-gradient-to-tr from-purple-700 to-pink-500 capitalize",
+      "text-white bg-gradient-to-tr from-purple-700 to-pink-500 capitalize shadow-md hover:shadow-lg hover:scale-105 transition duration-300",
     action:
       "bg-pink-500 hover:bg-pink-400 text-white shadow-sm hover:shadow-lg",
     noNote: "text-gray-300",
@@ -197,9 +199,9 @@ const THEMES = {
     optionSelected: "bg-[#8F5992] text-white font-semibold",
     title: "text-gray-200",
     upcoming:
-      "text-gray-950 bg-gradient-to-t from-[#FD746C] to-[#FFB199] capitalize",
+      "text-gray-950 bg-gradient-to-t from-[#FD746C] to-[#FFB199] capitalize shadow-md hover:shadow-lg hover:ring-3 hover:ring-[#ff7a73] transition duration-300",
     allBirthdays:
-      "text-white bg-gradient-to-tr from-[#8F5992] to-[#d283d6] capitalize",
+      "text-white bg-gradient-to-tr from-[#8F5992] to-[#d283d6] capitalize shadow-md hover:shadow-lg hover:scale-105 transition duration-300",
     action:
       "bg-[#ff7a73] hover:bg-[#e7655d] text-white shadow-sm hover:shadow-lg",
     noNote: "text-gray-300",
@@ -232,9 +234,9 @@ const THEMES = {
     optionSelected: "bg-[#49a5f0] text-white font-semibold",
     title: "text-[#ffefff]",
     upcoming:
-      "text-[#1f2a36] bg-gradient-to-br from-[#FFDE42] to-[#c49f02] capitalize",
+      "text-[#1f2a36] bg-gradient-to-br from-[#FFDE42] to-[#c49f02] capitalize shadow-md hover:shadow-lg hover:ring-3 hover:ring-yellow-600 transition duration-300",
     allBirthdays:
-      "text-[#1f2a36] bg-gradient-to-br from-[#cfefff] to-[#56ccf2] capitalize shadow-md",
+      "text-[#1f2a36] bg-gradient-to-br from-[#cfefff] to-[#56ccf2] capitalize shadow-md hover:shadow-lg hover:scale-105 transition duration-300",
     action:
       "bg-[#f7cb14] hover:bg-[#edc002] text-[#1f2a36] shadow-sm hover:shadow-lg",
     noNote: "text-gray-700",

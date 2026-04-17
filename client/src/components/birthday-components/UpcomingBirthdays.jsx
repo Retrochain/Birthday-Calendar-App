@@ -9,7 +9,7 @@ const UpcomingBirthdays = ({ birthdays, loading, error, theme }) => {
       <h1
         className={`${theme.title} font-bebas text-5xl items-center justify-center pt-2 pb-3`}
       >
-        Upcoming Birthdays
+        Birthdays This Month
       </h1>
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message if there are no birthdays. */}
@@ -41,7 +41,7 @@ const UpcomingBirthdays = ({ birthdays, loading, error, theme }) => {
           return (
             <div
               key={birthday.id}
-              className={`${theme.upcoming} rounded-xl shadow-sm p-3`}
+              className={`${theme.upcoming} rounded-xl shadow-sm p-4`}
             >
               <div className="text-xl font-bold truncate">{birthday.name}</div>
 
