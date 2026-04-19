@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { MONTH_NAMES } from "../../utils/CalendarUtils.js";
 import EditBirthdayModal from "../crud-modals/EditBirthdayModal";
 import DeleteBirthdayModal from "../crud-modals/DeleteBirthdayModal";
+
+// Define sorting options for the birthday list, allowing users to sort by name or date in ascending or descending order
+const SORT_OPTIONS = [
+  { value: "name-asc", label: "Name (A → Z)" },
+  { value: "name-desc", label: "Name (Z → A)" },
+  { value: "date-asc", label: "Date (Earliest first)" },
+  { value: "date-desc", label: "Date (Latest first)" },
+];
 
 // Component to display a list of all birthdays with options to edit or delete each entry
 const AllBirthdaysList = ({
@@ -17,13 +25,84 @@ const AllBirthdaysList = ({
   const [editingBirthday, setEditingBirthday] = useState(null);
   const [deletingBirthday, setDeletingBirthday] = useState(null);
 
+  // State to manage search input and sorting options selected by the user
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("date-asc");
+
+  // Filter and sort birthdays client-side based on the search query and selected sorting option
+  const displayedBirthdays = useMemo(() => {
+    let result = [...birthdays];
+
+    // Filter by search query (name or note)
+    if (search.trim()) {
+      const query = search.trim().toLowerCase();
+      result = result.filter(
+        (b) =>
+          b.name.toLowerCase().includes(query) ||
+          b.note?.toLowerCase().includes(query),
+      );
+    }
+
+    // Sort the results based on the selected sorting option
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case "name-asc":
+          return a.name.localeCompare(b.name);
+        case "name-desc":
+          return b.name.localeCompare(a.name);
+        case "date-asc":
+          return a.birthdate.localeCompare(b.birthdate);
+        case "date-desc":
+          return b.birthdate.localeCompare(a.birthdate);
+        default:
+          return 0;
+      }
+    });
+
+    return result;
+  }, [birthdays, search, sortBy]);
+
   // Render the list of birthdays with appropriate messages for loading, errors, and empty state
   return (
     <div className="container mx-auto items-center justify-center pl-2">
-      <h1 className={`${theme.title} font-bebas text-5xl mt-3`}>Your Added Birthdays</h1>
+      <h1 className={`${theme.title} font-bebas text-5xl mt-3`}>
+        Your Added Birthdays
+      </h1>
+
+      {/* Search and Sort controls */}
+      {!loading && !error && (
+        <div className="flex flex-col sm:flex-row gap-3 mt-4">
+          {/* Search input */}
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name or note..."
+            className={`${theme.search} p-2 rounded text-lg flex-1`}
+          />
+
+          {/* Sort dropdown */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className={`${theme.select} p-2 rounded text-lg`}
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option
+                key={opt.value}
+                value={opt.value}
+                className={theme.option}
+              >
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message for no birthdays found */}
       {error && <div className="mt-3 text-3xl">Error: {error}</div>}
+
       {loading && (
         <div
           className={`${theme.allBirthdays} shadow rounded-md p-4 max-w-sm w-full`}
@@ -47,13 +126,25 @@ const AllBirthdaysList = ({
           </div>
         </div>
       )}
+
       {!loading && !error && birthdays.length === 0 && (
-        <div className="mt-3 text-2xl">No birthdays found.</div>
+        <div className={`${theme.noBirthdays} mt-3 text-2xl`}>
+          No birthdays found.
+        </div>
       )}
+
+      {!loading &&
+        !error &&
+        birthdays.length > 0 &&
+        displayedBirthdays.length === 0 && (
+          <div className={`${theme.noBirthdays} mt-3 text-2xl font-semibold`}>
+            No birthdays match your search.
+          </div>
+        )}
 
       {/* Map through the list of birthdays and display each one with options to edit or delete */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-5 mt-5">
-        {birthdays.map((birthday) => {
+        {displayedBirthdays.map((birthday) => {
           const [year, month, day] = birthday.birthdate.split("-");
 
           return (
@@ -67,13 +158,11 @@ const AllBirthdaysList = ({
                 {MONTH_NAMES[Number.parseInt(month) - 1]} {day}, {year}
               </div>
 
-              {birthday.note === "" && (
+              {birthday.note === "" ? (
                 <div className={`${theme.noNote} text-lg mt-2 line-clamp-3`}>
                   No note
                 </div>
-              )}
-
-              {birthday.note !== "" && (
+              ) : (
                 <div className="text-lg mt-2 line-clamp-3 font-semibold">
                   {birthday.note}
                 </div>
@@ -135,7 +224,10 @@ AllBirthdaysList.propTypes = {
     allBirthdays: PropTypes.string,
     action: PropTypes.string,
     select: PropTypes.string.isRequired,
+    option: PropTypes.string,
+    search: PropTypes.string,
     noNote: PropTypes.string.isRequired,
+    noBirthdays: PropTypes.string.isRequired,
   }).isRequired,
 };
 

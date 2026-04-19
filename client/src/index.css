@@ -2,7 +2,7 @@
 
 
 @layer base {
-    body {
+  body {
     @apply min-h-screen text-gray-300 subpixel-antialiased;
     background: var(--bg-gradient);
   }
@@ -40,13 +40,12 @@
 /* Dusk */
 .theme-dusk {
   --bg-gradient: linear-gradient(to bottom, #2C3E50, #8f5992, #FD746C);
-  
 }
 
 /* Blue Sky */
 .theme-blueSky {
   --bg-gradient: linear-gradient(to bottom, #56ccf2, #49a5f0, #2f80ed);
-  
+
 }
 
 @font-face {

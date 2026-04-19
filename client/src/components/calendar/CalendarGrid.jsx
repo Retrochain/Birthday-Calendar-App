@@ -183,7 +183,7 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays, theme }) => {
           // Render a button for each day in the calendar grid
           return (
             <button
-              className={`relative border hover:shadow-md h-16 md:h-30 px-2 py-6 text-left text-lg font-semibold transition-colors duration-400 ${theme.cell} ${getDateButtonClass(cellDate, item.monthOffset)}`}
+              className={`relative border hover:shadow-md h-16 md:h-20 lg:h-32 px-2 py-6 text-left text-lg font-semibold transition-colors duration-400 ${theme.cell} ${getDateButtonClass(cellDate, item.monthOffset)}`}
               key={item.key}
               onClick={() => handleSelectDate(cellDate, item.isCurrentMonth)}
             >

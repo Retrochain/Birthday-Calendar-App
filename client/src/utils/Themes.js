@@ -29,6 +29,9 @@ const THEMES = {
     noNote: "text-gray-500",
     eye: "text-gray-800",
     footnote: "text-gray-700",
+    search:
+      "bg-gray-300 text-gray-800 border border-2 border-gray-500 focus:ring-blue-400",
+    noBirthdays: "text-gray-800",
   },
 
   orange: {
@@ -66,6 +69,9 @@ const THEMES = {
     noNote: "text-gray-800",
     eye: "text-gray-800",
     footnote: "text-gray-700",
+    search:
+      "bg-orange-300 text-gray-800 border border-2 border-orange-500 focus:ring-orange-400",
+    noBirthdays: "text-gray-800",
   },
 
   teal: {
@@ -100,6 +106,9 @@ const THEMES = {
     noNote: "text-gray-800",
     eye: "text-gray-800",
     footnote: "text-gray-700",
+    search:
+      "bg-teal-300 text-gray-800 border border-2 border-teal-500 focus:ring-teal-400",
+    noBirthdays: "text-gray-800",
   },
 
   dark: {
@@ -134,6 +143,9 @@ const THEMES = {
     noNote: "text-gray-300",
     eye: "text-gray-400",
     footnote: "text-gray-300",
+    search:
+      "bg-gray-700 text-gray-100 border border-2 border-gray-600 focus:ring-gray-500",
+    noBirthdays: "text-gray-300",
   },
 
   midnightPurple: {
@@ -172,6 +184,9 @@ const THEMES = {
     noNote: "text-gray-300",
     eye: "text-gray-500",
     footnote: "text-gray-300",
+    search:
+      "bg-purple-500 text-white border border-2 border-purple-600 focus:ring-purple-600",
+    noBirthdays: "text-gray-300",
   },
 
   dusk: {
@@ -207,6 +222,9 @@ const THEMES = {
     noNote: "text-gray-300",
     eye: "text-gray-400",
     footnote: "text-gray-300",
+    search:
+      "bg-[#34495E] text-white border border-2 border-[#415b75] focus:ring-[#8F5992]",
+    noBirthdays: "text-gray-800",
   },
 
   blueSky: {
@@ -242,6 +260,9 @@ const THEMES = {
     noNote: "text-gray-700",
     eye: "text-gray-700",
     footnote: "text-gray-300",
+    search:
+      "bg-blue-200 text-gray-800 border border-2 border-blue-300 focus:ring-blue-300",
+    noBirthdays: "text-white",
   },
 };
 
