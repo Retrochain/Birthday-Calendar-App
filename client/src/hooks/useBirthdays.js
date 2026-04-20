@@ -108,9 +108,9 @@ export const useBirthdays = (userId) => {
   const upcomingBirthdays = useMemo(() => {
     const currentMonth = new Date().getMonth() + 1;
 
-    return birthdays.filter((b) => {
-      return new Date(b.birthdate).getUTCMonth() + 1 === currentMonth;
-    });
+    return birthdays
+      .filter((b) => new Date(b.birthdate).getUTCMonth() + 1 === currentMonth)
+      .sort((a, b) => new Date(a.birthdate) - new Date(b.birthdate));
   }, [birthdays]);
 
   // useEffect to fetch birthdays when the component using this hook mounts
