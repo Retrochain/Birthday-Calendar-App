@@ -32,6 +32,7 @@ const THEMES = {
     search:
       "bg-gray-300 text-gray-800 border border-2 border-gray-500 focus:ring-blue-400",
     noBirthdays: "text-gray-800",
+    bTagToday: "text-white bg-gradient-to-t from-blue-800 to-blue-400",
   },
 
   orange: {
@@ -72,6 +73,7 @@ const THEMES = {
     search:
       "bg-orange-300 text-gray-800 border border-2 border-orange-500 focus:ring-orange-400",
     noBirthdays: "text-gray-800",
+    bTagToday: "text-white font-bold bg-gradient-to-t from-orange-800 to-orange-400",
   },
 
   teal: {
@@ -109,6 +111,7 @@ const THEMES = {
     search:
       "bg-teal-300 text-gray-800 border border-2 border-teal-500 focus:ring-teal-400",
     noBirthdays: "text-gray-800",
+    bTagToday: "text-white font-bold bg-gradient-to-t from-teal-800 to-teal-400",
   },
 
   dark: {
@@ -146,6 +149,7 @@ const THEMES = {
     search:
       "bg-gray-700 text-gray-100 border border-2 border-gray-600 focus:ring-gray-500",
     noBirthdays: "text-gray-300",
+    bTagToday: "text-white font-bold bg-gradient-to-t from-gray-700 to-gray-400",
   },
 
   midnightPurple: {
@@ -187,6 +191,7 @@ const THEMES = {
     search:
       "bg-purple-500 text-white border border-2 border-purple-600 focus:ring-purple-600",
     noBirthdays: "text-gray-300",
+    bTagToday: "text-white font-bold bg-gradient-to-t from-orange-600 to-pink-400",
   },
 
   dusk: {
@@ -225,6 +230,7 @@ const THEMES = {
     search:
       "bg-[#34495E] text-white border border-2 border-[#415b75] focus:ring-[#8F5992]",
     noBirthdays: "text-gray-800",
+    bTagToday: "text-white font-bold bg-gradient-to-t from-[#ff7a73] to-[#e7655d]",
   },
 
   blueSky: {
@@ -263,6 +269,7 @@ const THEMES = {
     search:
       "bg-blue-200 text-gray-800 border border-2 border-blue-300 focus:ring-blue-300",
     noBirthdays: "text-white",
+    bTagToday: "text-black font-bold bg-gradient-to-t from-[#f7cb14] to-[#edc002]",
   },
 };
 

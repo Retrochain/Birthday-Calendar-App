@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { apiRequest } from "../utils/RequestHelper";
 
 // Custom hook to manage birthdays data and API interactions
-export const useBirthdays = (userId) => {
+export const useBirthdays = (userId, currentDate) => {
   // State variables to hold birthdays, loading status, and any errors
   const [birthdays, setBirthdays] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -106,12 +106,30 @@ export const useBirthdays = (userId) => {
 
   // Method to get the birthdays in the current month that gets calculated between renders
   const upcomingBirthdays = useMemo(() => {
-    const currentMonth = new Date().getMonth() + 1;
+    // If there is no current date, return an empty array to avoid errors when trying to access the month
+    if (!currentDate) return [];
 
+    // Get the month from the current date to filter birthdays for that month
+    const selectedMonth = currentDate.getMonth();
+
+    // Helper function to parse a date string in the format "YYYY-MM-DD" into a Date object
+    const parseLocalDate = (dateString) => {
+      const [year, month, day] = dateString.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    };
+
+    // Filter the birthdays to include only those that match the selected month, and sort them by day within that month
     return birthdays
-      .filter((b) => new Date(b.birthdate).getUTCMonth() + 1 === currentMonth)
-      .sort((a, b) => new Date(a.birthdate) - new Date(b.birthdate));
-  }, [birthdays]);
+      .filter((b) => {
+        const date = parseLocalDate(b.birthdate);
+        return date.getMonth() === selectedMonth;
+      })
+      .sort((a, b) => {
+        const dayA = parseLocalDate(a.birthdate).getDate();
+        const dayB = parseLocalDate(b.birthdate).getDate();
+        return dayA - dayB;
+      });
+  }, [birthdays, currentDate]);
 
   // useEffect to fetch birthdays when the component using this hook mounts
   useEffect(() => {

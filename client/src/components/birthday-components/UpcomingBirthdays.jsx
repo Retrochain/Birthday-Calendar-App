@@ -2,21 +2,22 @@ import PropTypes from "prop-types";
 import { MONTH_NAMES } from "../../utils/CalendarUtils.js";
 
 // Component to display upcoming birthdays
-const UpcomingBirthdays = ({ birthdays, loading, error, theme }) => {
+const UpcomingBirthdays = ({ birthdays, loading, error, theme, currentDate }) => {
+  
   // Render the list of upcoming birthdays, or appropriate messages for loading, errors, or no birthdays
   return (
     <div className="container mx-auto pl-2">
       <h1
         className={`${theme.title} font-bebas text-5xl items-center justify-center pt-2 pb-3`}
       >
-        Birthdays This Month
+        Birthdays in {MONTH_NAMES[currentDate.getMonth()]}
       </h1>
 
       {/* Display error message if there is an error, loading message if data is being fetched, and a message if there are no birthdays. */}
       {error && <div className="mt-3 text-3xl">Error: {error}</div>}
       {loading && (
         <div
-          className={`${theme.upcoming} shadow rounded-md p-4 max-w-sm w-full mb-4`}
+          className={`${theme.upcoming} shadow rounded-md p-4 max-w-md w-full mb-4`}
         >
           <div className="animate-pulse flex space-x-4">
             <div className="flex-1 space-y-4 py-1">
@@ -70,6 +71,7 @@ UpcomingBirthdays.propTypes = {
     upcoming: PropTypes.string,
     select: PropTypes.string.isRequired,
   }).isRequired,
+  currentDate: PropTypes.instanceOf(Date),
 };
 
 // Export the UpcomingBirthdays component as the default export of this module

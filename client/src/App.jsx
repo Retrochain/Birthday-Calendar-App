@@ -30,6 +30,9 @@ function App() {
   // Set a selected date variable to track said selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  // Set a current date variable to track the current date (used for the upcoming birthdays component)
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   // Import all the useful functions and objects required from useBirthdays
   const {
     birthdays,
@@ -40,7 +43,7 @@ function App() {
     updateBirthday,
     deleteBirthday,
     upcomingBirthdays,
-  } = useBirthdays(user?.id);
+  } = useBirthdays(user?.id, currentDate);
 
   // If user is not logged in then only show a login modal
   if (!user) return <AuthModal theme={currentTheme} />;
@@ -59,7 +62,9 @@ function App() {
       <div className="flex flex-col sm:flex-row justify-between mt-10 gap-4">
         <CalendarGrid
           setSelectedDate={setSelectedDate}
-          upcomingBirthdays={birthdays}
+          upcomingBirthdays={upcomingBirthdays}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
           theme={currentTheme}
         />
 
@@ -76,6 +81,7 @@ function App() {
             loading={loading}
             error={error}
             theme={currentTheme}
+            currentDate={currentDate}
           />
         </div>
       </div>

@@ -8,12 +8,15 @@ import {
 import PropTypes from "prop-types";
 
 // React component that renders a calendar grid with navigation buttons and date selection functionality
-const CalendarGrid = ({ setSelectedDate, upcomingBirthdays, theme }) => {
+const CalendarGrid = ({
+  setSelectedDate,
+  upcomingBirthdays,
+  currentDate,
+  setCurrentDate,
+  theme,
+}) => {
   // Get the current date to use for navigating to the current month and highlighting today's date in the calendar grid
   const today = new Date();
-
-  // Use the useState hook to manage the current date and the selected date in the calendar
-  const [currentDate, setCurrentDate] = useState(new Date());
 
   // Use the useState hook to manage the selected date state in the calendar for visual changes
   const [selectedDateState, setSelectedDateState] = useState(null);
@@ -192,6 +195,15 @@ const CalendarGrid = ({ setSelectedDate, upcomingBirthdays, theme }) => {
                 {item.day}
               </span>
 
+              {isToday(cellDate) && birthdaysForDay.length > 0 && (
+                <>
+                  <span className={`${theme.bTagToday} absolute right-2 top-2 hidden rounded-full px-2 py-0.5 text-xs font-bold shadow-sm sm:inline-flex`}>
+                    Birthday Today
+                  </span>
+                  <span className="absolute right-0 top-0 inline-flex sm:hidden">🎂</span>
+                </>
+              )}
+
               {/* Display for the current birthdays for each day*/}
               {item.monthOffset === 0 && (
                 <>
@@ -258,6 +270,7 @@ CalendarGrid.propTypes = {
 
     birthdayDot: PropTypes.string,
     birthdayTag: PropTypes.string,
+    bTagToday: PropTypes.string,
 
     day: PropTypes.shape({
       default: PropTypes.string,
@@ -266,6 +279,9 @@ CalendarGrid.propTypes = {
       today: PropTypes.string,
     }),
   }).isRequired,
+
+  currentDate: PropTypes.instanceOf(Date).isRequired,
+  setCurrentDate: PropTypes.func.isRequired,
 };
 
 // Export the CalendarGrid component as the default export of this module
